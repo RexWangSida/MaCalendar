@@ -4,7 +4,6 @@ import { DatePicker } from "@material-ui/pickers";
 class DayPicker extends React.Component {
   render() {
     return (
-      <>
         <DatePicker
           autoOk
           orientation="portrait"
@@ -13,7 +12,6 @@ class DayPicker extends React.Component {
           value={this.props.date}
           onChange={(e)=>this.props.changeDate(e)}
         />
-      </>
     );
   }
 }

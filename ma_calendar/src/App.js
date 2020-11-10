@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import DateFnsUtils from '@date-io/date-fns';
 import {fade,withStyles} from '@material-ui/core/styles';
 import { DatePicker,MuiPickersUtilsProvider} from "@material-ui/pickers";
-//component
+//components
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -17,6 +17,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ListItemText from '@material-ui/core/ListItemText';
 import PropTypes from 'prop-types';
 import { Avatar } from '@material-ui/core';
+import { ColorPicker } from 'material-ui-color';
 import InputBase from '@material-ui/core/InputBase';
 import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -164,20 +165,25 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        open:true,
+        open:true, //whether the drawer is open
+        view:"day", //the view of the datepicker and the Calendar
         eventList:[["exercises","2020-09-10 19:50", "60","description",true]],
         classList:{
           "4HC3":[["lecture",]]
         },
-        checked:[0,1],
-        date:new Date(),
-
+        checked:[0,1],//checkbox
+        date:new Date(),//currentDate
+        themeColor:"blue"
     };
 
     this.handleToggle = this.handleToggle.bind(this);
     this.changeDate = this.changeDate.bind(this);
   }
-  //* Handle open/close of the drawer*
+  //add new events
+  addEvent(startDate,endDate,title,type){
+
+  }
+  // Handle the states of checkbox
   handleToggle(value){
     const currentIndex = this.state.checked.indexOf(value);
     const newChecked = [...this.state.checked];
@@ -190,6 +196,7 @@ class App extends React.Component {
     console.log(newChecked)
     this.setState({checked:newChecked})
   };
+  // change the date for display
   changeDate(date) {
     this.setState({
       date: date
@@ -197,13 +204,8 @@ class App extends React.Component {
   }
   render(){
     const { classes, theme} = this.props;
-    const handleDrawerOpen = () => {
-      this.setState({ open: true })
-    };
-
-    const handleDrawerClose = () => {
-      this.setState({ open: false })
-    };
+    const handleDrawerOpen = () => { this.setState({ open: true })};
+    const handleDrawerClose = () => {this.setState({ open: false })};
 
     return (
       <div className={classes.root}>
@@ -228,7 +230,7 @@ class App extends React.Component {
         </AppBar>
         {/* The dawer*/}
         <Drawer className={classes.drawer} variant="persistent" anchor="left" open={this.state.open}classes={{paper: classes.drawerPaper,}}>
-          <div className={classes.drawerHeader}>
+          <div className={classes.drawerHeader} style={{minHeight:"55px"}}>
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
             </IconButton>
@@ -243,6 +245,7 @@ class App extends React.Component {
               const labelId = `checkbox-list-secondary-label-${value}`;
               return (
                 <ListItem key={value} button>
+                  <ColorPicker defaultValue="red" hideTextfield/>
                   <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
                   <ListItemSecondaryAction>
                     <Checkbox edge="end" onChange={()=>this.handleToggle(value)} checked={this.state.checked.indexOf(value) !== -1} inputProps={{ 'aria-labelledby': labelId }}/>
