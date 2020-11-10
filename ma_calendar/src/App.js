@@ -1,9 +1,10 @@
 import './App.css';
 import React from 'react'
 import clsx from 'clsx';
-import PropTypes from 'prop-types';
-import { Avatar } from '@material-ui/core';
+import DateFnsUtils from '@date-io/date-fns';
 import {fade,withStyles} from '@material-ui/core/styles';
+import { DatePicker,MuiPickersUtilsProvider} from "@material-ui/pickers";
+//component
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,25 +13,30 @@ import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import SearchIcon from '@material-ui/icons/Search';
+import PropTypes from 'prop-types';
+import { Avatar } from '@material-ui/core';
 import InputBase from '@material-ui/core/InputBase';
-import MoreIcon from '@material-ui/icons/MoreVert';
-import ShareIcon from '@material-ui/icons/Share';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+//Icon
+import MoreIcon from '@material-ui/icons/MoreVert';
+import ShareIcon from '@material-ui/icons/Share';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import MailIcon from '@material-ui/icons/Mail';
+import SearchIcon from '@material-ui/icons/Search';
+import MenuIcon from '@material-ui/icons/Menu';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+//dependency
+import Calendar from './component/Calendar'
+import DayPicker from './component/DayPicker'
 
-const drawerWidth = 240;
-
+const drawerWidth = 310;
 const styles = (theme) => ({
   root: {
     display: 'flex',
@@ -164,10 +170,14 @@ class App extends React.Component {
           "4HC3":[["lecture",]]
         },
         checked:[0,1],
+        date:new Date(),
+
     };
 
     this.handleToggle = this.handleToggle.bind(this);
+    this.changeDate = this.changeDate.bind(this);
   }
+  //* Handle open/close of the drawer*
   handleToggle(value){
     const currentIndex = this.state.checked.indexOf(value);
     const newChecked = [...this.state.checked];
@@ -180,6 +190,11 @@ class App extends React.Component {
     console.log(newChecked)
     this.setState({checked:newChecked})
   };
+  changeDate(date) {
+    this.setState({
+      date: date
+    })
+  }
   render(){
     const { classes, theme} = this.props;
     const handleDrawerOpen = () => {
@@ -193,63 +208,35 @@ class App extends React.Component {
     return (
       <div className={classes.root}>
         <CssBaseline />
+        {/* The appBar(Nav)*/}
         <AppBar position="fixed" className={clsx(classes.appBar, {[classes.appBarShift]: this.state.open,})}>
           <Toolbar>
-            <IconButton color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              edge="start"
-              className={clsx(classes.menuButton, this.state.open && classes.hide)}>
+            <IconButton color="inherit" aria-label="open drawer" onClick={handleDrawerOpen} edge="start" className={clsx(classes.menuButton, this.state.open && classes.hide)}>
               <MenuIcon />
             </IconButton>
-            <Typography className={classes.title} variant="h6" noWrap>
-              MaCalendar
-            </Typography>
+            <Typography className={classes.title} variant="h6" noWrap>MaCalendar</Typography>
             <div className={classes.search}>
                 <div className={classes.searchIcon}>
                   <SearchIcon />
                 </div>
-                <InputBase
-                  placeholder="Search…"
-                  classes={{
-                    root: classes.inputRoot,
-                    input: classes.inputInput,
-                  }}
-                  inputProps={{ 'aria-label': 'search' }}
-                />
+                <InputBase placeholder="Search…" classes={{root: classes.inputRoot,input: classes.inputInput,}}inputProps={{ 'aria-label': 'search' }}/>
             </div>
             <IconButton aria-label="display more actions" edge="end" color="inherit"><ShareIcon /></IconButton>
             <IconButton aria-label="display more actions" edge="end" color="inherit"><MoreIcon /></IconButton>
             <IconButton aria-label="display more actions" edge="end" color="inherit"><AccountCircleIcon /></IconButton>
           </Toolbar>
         </AppBar>
-        <Drawer
-          className={classes.drawer}
-          variant="persistent"
-          anchor="left"
-          open={this.state.open}
-          classes={{
-            paper: classes.drawerPaper,
-          }}
-        >
+        {/* The dawer*/}
+        <Drawer className={classes.drawer} variant="persistent" anchor="left" open={this.state.open}classes={{paper: classes.drawerPaper,}}>
           <div className={classes.drawerHeader}>
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
             </IconButton>
           </div>
           <Divider />
-          <form className={classes.container} noValidate>
-            <TextField
-              id="date"
-              label="Choose a Date"
-              type="date"
-              defaultValue="2017-05-24"
-              className={classes.textField}
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
-          </form>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <DayPicker date={this.state.date} changeDate={this.changeDate}/>
+          </MuiPickersUtilsProvider>
           <Divider />
           <List dense className={classes.listRoot}>
             {[0, 1, 2, 3].map((value) => {
@@ -258,27 +245,17 @@ class App extends React.Component {
                 <ListItem key={value} button>
                   <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
                   <ListItemSecondaryAction>
-                    <Checkbox
-                      edge="end"
-                      onChange={()=>this.handleToggle(value)}
-                      checked={this.state.checked.indexOf(value) !== -1}
-                      inputProps={{ 'aria-labelledby': labelId }}
-                    />
+                    <Checkbox edge="end" onChange={()=>this.handleToggle(value)} checked={this.state.checked.indexOf(value) !== -1} inputProps={{ 'aria-labelledby': labelId }}/>
                   </ListItemSecondaryAction>
                 </ListItem>
               );
             })}
           </List>
         </Drawer>
-        <main
-          className={clsx(classes.content, {
-            [classes.contentShift]: this.state.open,
-          })}
-        >
+        {/* The main content block*/}
+        <main className={clsx(classes.content, {[classes.contentShift]: this.state.open,})}>
           <div className={classes.drawerHeader} />
-          <Typography paragraph>
-            Fake Content
-          </Typography>
+          <Calendar />
         </main>
       </div>
     )};
