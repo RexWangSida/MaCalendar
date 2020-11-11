@@ -140,25 +140,28 @@ class App extends React.Component {
         data:[
             {
               title: 'Website Re-Design Plan',
-              startDate: "2020-11-11T10:30",
-              endDate: "2020-11-11T12:30",
+              startDate: new Date(2020, 10, 11, 9, 35),//month is zero-indexed
+              endDate: new Date(2020, 10, 11, 10, 35),
               id: 0,
               location: 'Room 1',
-              group:"work"
+              group:"work",
+              notes:"lalalalalal"
             }, {
               title: 'Book Flights to San Fran for Sales Trip',
-              startDate: "2020-11-11T14:30",
-              endDate: "2020-11-11T15:30",
+              startDate: new Date(2020, 10, 12, 9, 35),//month is zero-indexed
+              endDate: new Date(2020, 10, 12, 10, 35),
               id: 1,
               location: 'Room 1',
-              group:"private"
+              group:"private",
+              notes:"lalalalalal"
             }, {
               title: 'Install New Router in Dev Room',
-              startDate: "2020-11-12T10:30",
-              endDate: "2020-11-12T12:30",
+              startDate: new Date(2020, 10, 11, 12, 35),//month is zero-indexed
+              endDate: new Date(2020, 10, 11, 15, 35),
               id: 2,
               location: 'Room 2',
-              group:"private"
+              group:"private",
+              notes:"lalalalalal"
             },
           ],
           resources:[{
@@ -181,7 +184,6 @@ class App extends React.Component {
   }
   //handle delet/edit/
   commitChanges({ added, changed, deleted }) {
-    console.log(changed)
     this.setState((state) => {
       let { data } = state;
       if (added) {
@@ -211,7 +213,6 @@ class App extends React.Component {
     } else {
       newChecked.splice(currentIndex, 1);
     }
-    console.log(newChecked)
     this.setState({checked:newChecked})
   };
   // change the date for display
