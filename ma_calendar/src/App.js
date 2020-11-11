@@ -19,11 +19,11 @@ import IconButton from '@material-ui/core/IconButton';
 import ListItemText from '@material-ui/core/ListItemText';
 import PropTypes from 'prop-types';
 import { Avatar } from '@material-ui/core';
-import { ColorPicker } from 'material-ui-color';
+
 import InputBase from '@material-ui/core/InputBase';
 import TextField from '@material-ui/core/TextField';
-import Checkbox from '@material-ui/core/Checkbox';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+
+
 //Icon
 import MoreIcon from '@material-ui/icons/MoreVert';
 import ShareIcon from '@material-ui/icons/Share';
@@ -37,8 +37,8 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 //dependency
 import Calendar from './component/Calendar'
-import DayPicker from './component/DayPicker'
 import Share from './component/Share'
+import MenuDrawer from './component/MenuDrawer'
 
 
 const drawerWidth = 310;
@@ -91,14 +91,13 @@ const styles = (theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    marginLeft: -drawerWidth,
   },
   contentShift: {
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    marginLeft: 0,
+    marginLeft: drawerWidth,
   },
   title: {
     flexGrow: 1,
@@ -165,11 +164,10 @@ const styles = (theme) => ({
 });
 
 class App extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
-        open:true, //whether the drawer is open
+        open:false, //whether the drawer is open
         view:"day", //the view of the datepicker and the Calendar
         eventList:[["exercises","2020-09-10 19:50", "60","description",true]],
         classList:{
@@ -185,23 +183,16 @@ class App extends React.Component {
   { title: 'The Godfather: Part II', year: 1974 },
   { title: 'The Dark Knight', year: 2008 },
 ];
-
     this.handleToggle = this.handleToggle.bind(this);
     this.changeDate = this.changeDate.bind(this);
   }
-
-  state = {
-    top: false,
-  };
   //add new events
   addEvent(startDate,endDate,title,type){
-
   }
   // Handle the states of checkbox
   handleToggle(value){
     const currentIndex = this.state.checked.indexOf(value);
     const newChecked = [...this.state.checked];
-
     if (currentIndex === -1) {
       newChecked.push(value);
     } else {
@@ -221,51 +212,13 @@ class App extends React.Component {
     const { classes, theme} = this.props;
     const handleDrawerOpen = () => { this.setState({ open: true })};
     const handleDrawerClose = () => {this.setState({ open: false })};
-    const toggleDrawer = (anchor, open) => (event) => {
-      if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-        return;
-      }
-      this.setState({top: open });
-    };
-
-    const list = (anchor) => (
-      <div
-        className={clsx(classes.list, {
-          [classes.fullList]: anchor === 'top' || anchor === 'bottom',
-        })}
-        role="presentation"
-        onClick={toggleDrawer(this.top, false)}
-        onKeyDown={toggleDrawer(this.top, false)}
-      >
-        <List>
-            <ListItem>
-              <ListItemIcon><ShareIcon/></ListItemIcon>
-              <ListItemText primary = {"Share with your frineds"}/>
-            </ListItem>
-
-        </List>
-        <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-      </div>
-    );
     return (
       <div className={classes.root}>
-
         <CssBaseline />
         {/* The appBar(Nav)*/}
         <AppBar position="fixed" className={clsx(classes.appBar, {[classes.appBarShift]: this.state.open,})}>
-
           <Toolbar>
-            <IconButton color="inherit" aria-label="open drawer" onClick={handleDrawerOpen} edge="start" className={clsx(classes.menuButton, this.state.open && classes.hide)}>
-              <MenuIcon />
-            </IconButton>
+            <MenuDrawer open={this.state.open} handleOpen={handleDrawerOpen.bind(this)} handleClose={handleDrawerClose.bind(this)} date={this.state.date} changeDate={this.changeDate} checked={this.state.checked}/>
             <Typography className={classes.title} variant="h6" noWrap>MaCalendar</Typography>
             <div className={classes.search}>
                 <div className={classes.searchIcon}>
@@ -292,33 +245,6 @@ class App extends React.Component {
             <IconButton aria-label="display more actions" edge="end" color="inherit"><AccountCircleIcon /></IconButton>
           </Toolbar>
         </AppBar>
-        {/* The dawer*/}
-        <Drawer className={classes.drawer} variant="persistent" anchor="left" open={this.state.open}classes={{paper: classes.drawerPaper,}}>
-          <div className={classes.drawerHeader} style={{minHeight:"55px"}}>
-            <IconButton onClick={handleDrawerClose}>
-              {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-            </IconButton>
-          </div>
-          <Divider />
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <DayPicker date={this.state.date} changeDate={this.changeDate}/>
-          </MuiPickersUtilsProvider>
-          <Divider />
-          <List dense className={classes.listRoot}>
-            {[0, 1, 2, 3].map((value) => {
-              const labelId = `checkbox-list-secondary-label-${value}`;
-              return (
-                <ListItem key={value} button>
-                  <ColorPicker defaultValue="red" hideTextfield/>
-                  <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
-                  <ListItemSecondaryAction>
-                    <Checkbox edge="end" onChange={()=>this.handleToggle(value)} checked={this.state.checked.indexOf(value) !== -1} inputProps={{ 'aria-labelledby': labelId }}/>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              );
-            })}
-          </List>
-        </Drawer>
         {/* The main content block*/}
         <main className={clsx(classes.content, {[classes.contentShift]: this.state.open,})}>
           <div className={classes.drawerHeader} />
@@ -326,10 +252,7 @@ class App extends React.Component {
         </main>
       </div>
     )};
-
 }
-
-
 App.propTypes = {
   classes: PropTypes.object.isRequired,
 };
