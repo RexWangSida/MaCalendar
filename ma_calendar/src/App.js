@@ -3,8 +3,9 @@ import React from 'react'
 import clsx from 'clsx';
 import DateFnsUtils from '@date-io/date-fns';
 import {fade,withStyles} from '@material-ui/core/styles';
-import { DatePicker,MuiPickersUtilsProvider} from "@material-ui/pickers";
 //components
+import { DatePicker,MuiPickersUtilsProvider} from "@material-ui/pickers";
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -173,8 +174,14 @@ class App extends React.Component {
         },
         checked:[0,1],//checkbox
         date:new Date(),//currentDate
-        themeColor:"blue"
+        themeColor:"#3f51b5"
     };
+    this.searchOption = [
+  { title: 'The Shawshank Redemption', year: 1994 },
+  { title: 'The Godfather', year: 1972 },
+  { title: 'The Godfather: Part II', year: 1974 },
+  { title: 'The Dark Knight', year: 2008 },
+];
 
     this.handleToggle = this.handleToggle.bind(this);
     this.changeDate = this.changeDate.bind(this);
@@ -221,7 +228,21 @@ class App extends React.Component {
                 <div className={classes.searchIcon}>
                   <SearchIcon />
                 </div>
-                <InputBase placeholder="Search…" classes={{root: classes.inputRoot,input: classes.inputInput,}}inputProps={{ 'aria-label': 'search' }}/>
+                <Autocomplete
+                  id="free-solo-demo"
+                  freeSolo
+                  options={this.searchOption.map((option) => option.title)}
+                  renderInput={(params) => (
+                      <InputBase
+                        inputProps={{ 'aria-label': 'search' }}
+                        placeholder="Search…"
+                        ref={params.InputProps.ref}
+                        inputProps={params.inputProps}
+                        autoFocus
+                        className={classes.inputBase}
+                        classes={{root: classes.inputRoot,input: classes.inputInput,}}
+                      />)}
+                />
             </div>
             <IconButton aria-label="display more actions" edge="end" color="inherit"><ShareIcon /></IconButton>
             <IconButton aria-label="display more actions" edge="end" color="inherit"><MoreIcon /></IconButton>

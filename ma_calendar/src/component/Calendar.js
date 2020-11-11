@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
 import { ViewState } from '@devexpress/dx-react-scheduler';
@@ -12,17 +11,16 @@ class Calendar extends React.Component{
   startDate: '2018-10-31T10:00',
   endDate: '2018-10-31T10:01',
   title: 'Meeting',
-  type: 'private',
+  group: 'private',
   description:"lalalala"
 }, {
   startDate: '2018-10-31T07:30',
   endDate: '2018-10-31T09:00',
   title: 'Go to a gym',
-  type: 'work',
+  group: 'work',
 }]
   this.resources = [{
-  fieldName: 'type',
-  title: 'Type',
+  fieldName: 'group',
   instances: [
     { id: 'private', text: 'Private', color: '#EC407A' },
     { id: 'work', text: 'Work', color: '#7E57C2' },
