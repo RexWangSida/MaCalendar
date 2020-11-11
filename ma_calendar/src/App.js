@@ -1,47 +1,33 @@
 import './App.css';
 import React from 'react'
 import clsx from 'clsx';
-import {Route,Link,NavLink,Redirect,useHistory} from 'react-router-dom';
-import DateFnsUtils from '@date-io/date-fns';
 import {fade,withStyles} from '@material-ui/core/styles';
 //components
-import { DatePicker,MuiPickersUtilsProvider} from "@material-ui/pickers";
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
 import IconButton from '@material-ui/core/IconButton';
-import ListItemText from '@material-ui/core/ListItemText';
 import PropTypes from 'prop-types';
-import { Avatar } from '@material-ui/core';
-import { ColorPicker } from 'material-ui-color';
 import InputBase from '@material-ui/core/InputBase';
-import TextField from '@material-ui/core/TextField';
-import Checkbox from '@material-ui/core/Checkbox';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 //Icon
 import MoreIcon from '@material-ui/icons/MoreVert';
-import ShareIcon from '@material-ui/icons/Share';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import SearchIcon from '@material-ui/icons/Search';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 //dependency
 import Calendar from './component/Calendar'
-import DayPicker from './component/DayPicker'
 import Share from './component/Share'
 import Settings from './component/Settings';
 
 
+import MenuDrawer from './component/MenuDrawer'
+//global const
 const drawerWidth = 310;
 const styles = (theme) => ({
   root: {
@@ -63,43 +49,21 @@ const styles = (theme) => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  hide: {
-    display: 'none',
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: drawerWidth,
-    marginTop:"64px",
-  },
-  drawerHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
-  },
   content: {
+    paddingTop: "22px",
     flexGrow: 1,
-    padding: theme.spacing(3),
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    marginLeft: -drawerWidth,
+    marginTop:"60px"
   },
   contentShift: {
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    marginLeft: 0,
+    marginLeft: drawerWidth,
   },
   title: {
     flexGrow: 1,
@@ -158,57 +122,100 @@ const styles = (theme) => ({
     marginBottom: theme.spacing(1),
     width: 200,
   },
-  listRoot:{
-    width: '100%',
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
   },
 });
 
 class App extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
-        open:true, //whether the drawer is open
-        view:"day", //the view of the datepicker and the Calendar
-        eventList:[["exercises","2020-09-10 19:50", "60","description",true]],
-        classList:{
-          "4HC3":[["lecture",]]
-        },
+        open:false, //whether the drawer is open
+        view:"Week", //the view of the datepicker and the Calendar
         checked:[0,1],//checkbox
         date:new Date(),//currentDate
         themeColor:"#3f51b5",
+        data:[
+            {
+              title: 'Website Re-Design Plan',
+              startDate: new Date(2020, 10, 11, 9, 35),//month is zero-indexed
+              endDate: new Date(2020, 10, 11, 10, 35),
+              id: 0,
+              location: 'Room 1',
+              group:"work",
+              notes:"lalalalalal"
+            }, {
+              title: 'Book Flights to San Fran for Sales Trip',
+              startDate: new Date(2020, 10, 12, 9, 35),//month is zero-indexed
+              endDate: new Date(2020, 10, 12, 10, 35),
+              id: 1,
+              location: 'Room 1',
+              group:"private",
+              notes:"lalalalalal"
+            }, {
+              title: 'Install New Router in Dev Room',
+              startDate: new Date(2020, 10, 11, 12, 35),//month is zero-indexed
+              endDate: new Date(2020, 10, 11, 15, 35),
+              id: 2,
+              location: 'Room 2',
+              group:"private",
+              notes:"lalalalalal"
+            },
+          ],
+          resources:[{
+            fieldName: 'group',
+            instances: [
+              { id: 'private', text: 'Private', color: '#EC407A' },
+              { id: 'work', text: 'Work', color: '#7E57C2' },
+            ],
+          }]
     };
     this.searchOption = [
-  { title: 'The Shawshank Redemption', year: 1994 },
-  { title: 'The Godfather', year: 1972 },
-  { title: 'The Godfather: Part II', year: 1974 },
-  { title: 'The Dark Knight', year: 2008 },
-];
-
+      { title: 'The Shawshank Redemption', year: 1994 },
+      { title: 'The Godfather', year: 1972 },
+      { title: 'The Godfather: Part II', year: 1974 },
+      { title: 'The Dark Knight', year: 2008 },
+    ];
     this.handleToggle = this.handleToggle.bind(this);
     this.changeDate = this.changeDate.bind(this);
+    this.commitChanges = this.commitChanges.bind(this);
   }
-
-  state = {
-    top: false,
-  };
+  //handle delet/edit/
+  commitChanges({ added, changed, deleted }) {
+    this.setState((state) => {
+      let { data } = state;
+      if (added) {
+        const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;
+        data = [...data, { id: startingAddedId, ...added }];
+      }
+      if (changed) {
+        data = data.map(appointment => (
+          changed[appointment.id] ? { ...appointment, ...changed[appointment.id] } : appointment));
+      }
+      if (deleted !== undefined) {
+        data = data.filter(appointment => appointment.id !== deleted);
+      }
+      return { data };
+    });
+  }
   //add new events
-  addEvent(startDate,endDate,title,type){
+  addEvent(title,startDate,endDate,description,alarm,group="default",period="none"){
 
   }
   // Handle the states of checkbox
   handleToggle(value){
     const currentIndex = this.state.checked.indexOf(value);
     const newChecked = [...this.state.checked];
-
     if (currentIndex === -1) {
       newChecked.push(value);
     } else {
       newChecked.splice(currentIndex, 1);
     }
-    console.log(newChecked)
     this.setState({checked:newChecked})
   };
   // change the date for display
@@ -223,18 +230,23 @@ class App extends React.Component {
     const handleDrawerOpen = () => { this.setState({ open: true })};
     const handleDrawerClose = () => {this.setState({ open: false })};
 
+    const handleChange = (event) => {this.setState({view:event.target.value});};
     return (
       <div className={classes.root}>
-
         <CssBaseline />
         {/* The appBar(Nav)*/}
         <AppBar position="fixed" className={clsx(classes.appBar, {[classes.appBarShift]: this.state.open,})}>
-
           <Toolbar>
-            <IconButton color="inherit" aria-label="open drawer" onClick={handleDrawerOpen} edge="start" className={clsx(classes.menuButton, this.state.open && classes.hide)}>
-              <MenuIcon />
-            </IconButton>
+            <MenuDrawer open={this.state.open} handleOpen={handleDrawerOpen.bind(this)} handleClose={handleDrawerClose.bind(this)} date={this.state.date} changeDate={this.changeDate} checked={this.state.checked}/>
             <Typography className={classes.title} variant="h6" noWrap>MaCalendar</Typography>
+            <FormControl variant="outlined" className={classes.formControl}>
+              <InputLabel id="select-view">View</InputLabel>
+              <Select labelId="select-view" value={this.state.view} onChange={handleChange} label="View">
+                <MenuItem value={"Day"}>DAY</MenuItem>
+                <MenuItem value={"Week"}>WEEK</MenuItem>
+                <MenuItem value={"Month"}>MONTH</MenuItem>
+              </Select>
+            </FormControl>
             <div className={classes.search}>
                 <div className={classes.searchIcon}>
                   <SearchIcon />
@@ -262,44 +274,14 @@ class App extends React.Component {
 
           </Toolbar>
         </AppBar>
-        {/* The dawer*/}
-        <Drawer className={classes.drawer} variant="persistent" anchor="left" open={this.state.open}classes={{paper: classes.drawerPaper,}}>
-          <div className={classes.drawerHeader} style={{minHeight:"55px"}}>
-            <IconButton onClick={handleDrawerClose}>
-              {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-            </IconButton>
-          </div>
-          <Divider />
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <DayPicker date={this.state.date} changeDate={this.changeDate}/>
-          </MuiPickersUtilsProvider>
-          <Divider />
-          <List dense className={classes.listRoot}>
-            {[0, 1, 2, 3].map((value) => {
-              const labelId = `checkbox-list-secondary-label-${value}`;
-              return (
-                <ListItem key={value} button>
-                  <ColorPicker defaultValue="red" hideTextfield/>
-                  <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
-                  <ListItemSecondaryAction>
-                    <Checkbox edge="end" onChange={()=>this.handleToggle(value)} checked={this.state.checked.indexOf(value) !== -1} inputProps={{ 'aria-labelledby': labelId }}/>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              );
-            })}
-          </List>
-        </Drawer>
         {/* The main content block*/}
         <main className={clsx(classes.content, {[classes.contentShift]: this.state.open,})}>
           <div className={classes.drawerHeader} />
-          <Calendar />
+          <Calendar style={{padding:"30px"}} data={this.state.data} commitChanges={this.commitChanges} date={this.state.date} view={this.state.view} resources={this.state.resources}/>
         </main>
       </div>
     )};
-
 }
-
-
 App.propTypes = {
   classes: PropTypes.object.isRequired,
 };
