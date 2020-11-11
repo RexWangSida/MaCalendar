@@ -39,6 +39,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Calendar from './component/Calendar'
 import DayPicker from './component/DayPicker'
 import Share from './component/Share'
+import Settings from './component/Settings';
 
 
 const drawerWidth = 310;
@@ -221,40 +222,7 @@ class App extends React.Component {
     const { classes, theme} = this.props;
     const handleDrawerOpen = () => { this.setState({ open: true })};
     const handleDrawerClose = () => {this.setState({ open: false })};
-    const toggleDrawer = (anchor, open) => (event) => {
-      if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-        return;
-      }
-      this.setState({top: open });
-    };
 
-    const list = (anchor) => (
-      <div
-        className={clsx(classes.list, {
-          [classes.fullList]: anchor === 'top' || anchor === 'bottom',
-        })}
-        role="presentation"
-        onClick={toggleDrawer(this.top, false)}
-        onKeyDown={toggleDrawer(this.top, false)}
-      >
-        <List>
-            <ListItem>
-              <ListItemIcon><ShareIcon/></ListItemIcon>
-              <ListItemText primary = {"Share with your frineds"}/>
-            </ListItem>
-
-        </List>
-        <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-      </div>
-    );
     return (
       <div className={classes.root}>
 
@@ -289,7 +257,9 @@ class App extends React.Component {
             </div>
             <Share/>
             <IconButton aria-label="display more actions" edge="end" color="inherit"><MoreIcon /></IconButton>
+            <Settings/>
             <IconButton aria-label="display more actions" edge="end" color="inherit"><AccountCircleIcon /></IconButton>
+
           </Toolbar>
         </AppBar>
         {/* The dawer*/}
