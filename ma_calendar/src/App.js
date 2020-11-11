@@ -1,6 +1,7 @@
 import './App.css';
 import React from 'react'
 import clsx from 'clsx';
+import {Route,Link,NavLink,Redirect,useHistory} from 'react-router-dom';
 import DateFnsUtils from '@date-io/date-fns';
 import {fade,withStyles} from '@material-ui/core/styles';
 //components
@@ -37,6 +38,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 //dependency
 import Calendar from './component/Calendar'
 import DayPicker from './component/DayPicker'
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 
 const drawerWidth = 310;
 const styles = (theme) => ({
@@ -161,8 +164,76 @@ const styles = (theme) => ({
   },
 });
 
+const useStyles = makeStyles({
+  list: {
+    width: 250,
+  },
+  fullList: {
+    width: 'auto',
+  },
+});
+
+function Share() {
+  const classes = useStyles();
+  const [state, setState] = React.useState({
+    top: false,
+  });
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+
+    setState({ ...state, [anchor]: open });
+  };
+
+  const list = (anchor) => (
+    <div
+      className={clsx(classes.list, {
+        [classes.fullList]: anchor === 'top' || anchor === 'bottom',
+      })}
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+
+      <List>
+          <ListItem>
+            <ListItemIcon><ShareIcon/></ListItemIcon>
+            <ListItemText primary = {"Share with your frineds"}/>
+          </ListItem>
+
+      </List>
+      <Divider />
+      <List>
+        {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          <ListItem button key={text}>
+            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+            <ListItemText primary={text} />
+          </ListItem>
+        ))}
+      </List>
+    </div>
+  );
+
+  return (
+    <div>
+      {['top'].map((anchor) => (
+        <React.Fragment key={anchor}>
+          <IconButton onClick={toggleDrawer(anchor, true)} aria-label="display more actions" edge="end" color="inherit"><ShareIcon /></IconButton>
+          <Drawer anchor={'top'} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
+            {list(anchor)}
+          </Drawer>
+        </React.Fragment>
+      ))}
+    </div>
+  );
+}
+
+
 
 class App extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -174,7 +245,7 @@ class App extends React.Component {
         },
         checked:[0,1],//checkbox
         date:new Date(),//currentDate
-        themeColor:"#3f51b5"
+        themeColor:"#3f51b5",
     };
     this.searchOption = [
   { title: 'The Shawshank Redemption', year: 1994 },
@@ -186,6 +257,10 @@ class App extends React.Component {
     this.handleToggle = this.handleToggle.bind(this);
     this.changeDate = this.changeDate.bind(this);
   }
+
+  state = {
+    top: false,
+  };
   //add new events
   addEvent(startDate,endDate,title,type){
 
@@ -209,16 +284,52 @@ class App extends React.Component {
       date: date
     })
   }
+
   render(){
     const { classes, theme} = this.props;
     const handleDrawerOpen = () => { this.setState({ open: true })};
     const handleDrawerClose = () => {this.setState({ open: false })};
+    const toggleDrawer = (anchor, open) => (event) => {
+      if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+        return;
+      }
+      this.setState({top: open });
+    };
 
+    const list = (anchor) => (
+      <div
+        className={clsx(classes.list, {
+          [classes.fullList]: anchor === 'top' || anchor === 'bottom',
+        })}
+        role="presentation"
+        onClick={toggleDrawer(this.top, false)}
+        onKeyDown={toggleDrawer(this.top, false)}
+      >
+        <List>
+            <ListItem>
+              <ListItemIcon><ShareIcon/></ListItemIcon>
+              <ListItemText primary = {"Share with your frineds"}/>
+            </ListItem>
+
+        </List>
+        <Divider />
+        <List>
+          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+      </div>
+    );
     return (
       <div className={classes.root}>
+
         <CssBaseline />
         {/* The appBar(Nav)*/}
         <AppBar position="fixed" className={clsx(classes.appBar, {[classes.appBarShift]: this.state.open,})}>
+
           <Toolbar>
             <IconButton color="inherit" aria-label="open drawer" onClick={handleDrawerOpen} edge="start" className={clsx(classes.menuButton, this.state.open && classes.hide)}>
               <MenuIcon />
@@ -244,7 +355,8 @@ class App extends React.Component {
                       />)}
                 />
             </div>
-            <IconButton aria-label="display more actions" edge="end" color="inherit"><ShareIcon /></IconButton>
+
+            <Share/>
             <IconButton aria-label="display more actions" edge="end" color="inherit"><MoreIcon /></IconButton>
             <IconButton aria-label="display more actions" edge="end" color="inherit"><AccountCircleIcon /></IconButton>
           </Toolbar>
@@ -283,6 +395,7 @@ class App extends React.Component {
         </main>
       </div>
     )};
+
 }
 
 
