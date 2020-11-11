@@ -59,11 +59,11 @@ const CommandButton = withStyles(style, { name: 'CommandButton' })(({
 ));
 
 class Calendar extends React.PureComponent{
-
   render(){
+    const shownEvents = this.props.data.filter(appointment => this.props.checked.indexOf(appointment.group) !== -1);
     return(
       <Paper>
-        <Scheduler data={this.props.data} >
+        <Scheduler data={shownEvents} >
           <ViewState currentDate={this.props.date} currentViewName={this.props.view}/>
           <EditingState onCommitChanges={this.props.commitChanges}/>
           <IntegratedEditing />

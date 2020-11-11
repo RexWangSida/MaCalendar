@@ -13,13 +13,14 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
-import { ColorPicker } from 'material-ui-color';
+import { SketchPicker,CirclePicker} from 'react-color';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { DatePicker,MuiPickersUtilsProvider} from "@material-ui/pickers";
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import DayPicker from './DayPicker'
+import ColorPicker from './ColorPicker'
 
 const drawerWidth = 310;
 const useStyles = makeStyles((theme) => ({
@@ -64,6 +65,7 @@ export default function MenuDrawer(props) {
           {/* The dawer*/}
           <Drawer className={classes.drawer} variant="persistent" anchor="left" open={props.open}classes={{paper: classes.drawerPaper,}}>
             <div className={classes.drawerHeader} style={{minHeight:"55px"}}>
+              <Button color="primary" style={{marginRight:"180px"}} onClick={()=>props.changeDate(new Date())}>Today</Button>
               <IconButton onClick={props.handleClose}>
                 {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
               </IconButton>
@@ -74,14 +76,14 @@ export default function MenuDrawer(props) {
             </MuiPickersUtilsProvider>
             <Divider />
             <List dense className={classes.listRoot}>
-              {[0, 1, 2, 3].map((value) => {
-                const labelId = `checkbox-list-secondary-label-${value}`;
+              {props.groups.map((group) => {
+                const labelId = `checkbox-list-secondary-label-${group.id}`;
                 return (
-                  <ListItem key={value} button>
-                    <ColorPicker defaultValue="red" hideTextfield/>
-                    <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
+                  <ListItem key={group.id} button>
+                    <ColorPicker color={group.color} changeGroupColor={(color)=>props.changeGroupColor(group.id,group.text,color)}/>
+                    <ListItemText id={labelId} primary={group.text} />
                     <ListItemSecondaryAction>
-                      <Checkbox edge="end" onChange={()=>this.handleToggle(value)} checked={props.checked.indexOf(value) !== -1} inputProps={{ 'aria-labelledby': labelId }}/>
+                      <Checkbox edge="end" onChange={()=>props.handleToggle(group.id)} checked={props.checked.indexOf(group.id) !== -1} inputProps={{ 'aria-labelledby': labelId }}/>
                     </ListItemSecondaryAction>
                   </ListItem>
                 );

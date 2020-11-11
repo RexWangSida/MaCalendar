@@ -134,10 +134,11 @@ class App extends React.Component {
     this.state = {
         open:false, //whether the drawer is open
         view:"Week", //the view of the datepicker and the Calendar
-        checked:[0,1],//checkbox
+        checked:["private","work"],//checkbox
         date:new Date(),//currentDate
         themeColor:"#3f51b5",
-        data:[
+        events:[],
+        event:[
             {
               title: 'Website Re-Design Plan',
               startDate: new Date(2020, 10, 11, 9, 35),//month is zero-indexed
@@ -145,7 +146,8 @@ class App extends React.Component {
               id: 0,
               location: 'Room 1',
               group:"work",
-              notes:"lalalalalal"
+              notes:"lalalalalal",
+              rRule: "RRULE:FREQ=WEEKLY;INTERVAL=1;COUNT=30"
             }, {
               title: 'Book Flights to San Fran for Sales Trip',
               startDate: new Date(2020, 10, 12, 9, 35),//month is zero-indexed
@@ -170,7 +172,7 @@ class App extends React.Component {
               { id: 'private', text: 'Private', color: '#EC407A' },
               { id: 'work', text: 'Work', color: '#7E57C2' },
             ],
-          }]
+          }],
     };
     this.searchOption = [
       { title: 'The Shawshank Redemption', year: 1994 },
@@ -181,23 +183,37 @@ class App extends React.Component {
     this.handleToggle = this.handleToggle.bind(this);
     this.changeDate = this.changeDate.bind(this);
     this.commitChanges = this.commitChanges.bind(this);
+    this.changeGroupColor = this.changeGroupColor.bind(this);
   }
-  //handle delet/edit/
+  changeGroupColor(id,text,color){
+    const instances = this.state.resources[0].instances
+    for(var i=0;i<instances.length;i++){
+      if(instances[i].id === id)instances[i].color=color;
+    }
+    this.setState({
+      resources:[{
+        fieldName: 'group',
+        instances: instances
+      }]
+    })
+  }
+  //handle delet/edit/modify of events
   commitChanges({ added, changed, deleted }) {
+    console.log(changed)
     this.setState((state) => {
-      let { data } = state;
+      let { event } = state;
       if (added) {
-        const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;
-        data = [...data, { id: startingAddedId, ...added }];
+        const startingAddedId = event.length > 0 ? event[event.length - 1].id + 1 : 0;
+        event = [...event, { id: startingAddedId, ...added }];
       }
       if (changed) {
-        data = data.map(appointment => (
+        event = event.map(appointment => (
           changed[appointment.id] ? { ...appointment, ...changed[appointment.id] } : appointment));
       }
       if (deleted !== undefined) {
-        data = data.filter(appointment => appointment.id !== deleted);
+        event = event.filter(appointment => appointment.id !== deleted);
       }
-      return { data };
+      return { event };
     });
   }
   //add new events
@@ -233,7 +249,7 @@ class App extends React.Component {
         {/* The appBar(Nav)*/}
         <AppBar position="fixed" className={clsx(classes.appBar, {[classes.appBarShift]: this.state.open,})}>
           <Toolbar>
-            <MenuDrawer open={this.state.open} handleOpen={handleDrawerOpen.bind(this)} handleClose={handleDrawerClose.bind(this)} date={this.state.date} changeDate={this.changeDate} checked={this.state.checked}/>
+            <MenuDrawer changeGroupColor={this.changeGroupColor} handleToggle={this.handleToggle} groups={this.state.resources[0].instances} open={this.state.open} handleOpen={handleDrawerOpen.bind(this)} handleClose={handleDrawerClose.bind(this)} date={this.state.date} changeDate={this.changeDate} checked={this.state.checked}/>
             <Typography className={classes.title} variant="h6" noWrap>MaCalendar</Typography>
             <FormControl variant="outlined" className={classes.formControl}>
               <InputLabel id="select-view">View</InputLabel>
@@ -271,7 +287,7 @@ class App extends React.Component {
         {/* The main content block*/}
         <main className={clsx(classes.content, {[classes.contentShift]: this.state.open,})}>
           <div className={classes.drawerHeader} />
-          <Calendar style={{padding:"30px"}} data={this.state.data} commitChanges={this.commitChanges} date={this.state.date} view={this.state.view} resources={this.state.resources}/>
+          <Calendar checked={this.state.checked} style={{padding:"30px"}} data={this.state.event} commitChanges={this.commitChanges} date={this.state.date} view={this.state.view} resources={this.state.resources}/>
         </main>
       </div>
     )};
