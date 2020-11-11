@@ -23,6 +23,9 @@ import SearchIcon from '@material-ui/icons/Search';
 //dependency
 import Calendar from './component/Calendar'
 import Share from './component/Share'
+import Settings from './component/Settings';
+
+
 import MenuDrawer from './component/MenuDrawer'
 //global const
 const drawerWidth = 310;
@@ -241,7 +244,8 @@ class App extends React.Component {
   render(){
     const { classes, theme} = this.props;
     const handleDrawerOpen = () => { this.setState({ open: true })};
-    const handleDrawerClose = () => {this.setState({ open: false})};
+    const handleDrawerClose = () => {this.setState({ open: false })};
+
     const handleChange = (event) => {this.setState({view:event.target.value});};
     return (
       <div className={classes.root}>
@@ -281,7 +285,9 @@ class App extends React.Component {
             </div>
             <Share/>
             <IconButton aria-label="display more actions" edge="end" color="inherit"><MoreIcon /></IconButton>
+            <Settings/>
             <IconButton aria-label="display more actions" edge="end" color="inherit"><AccountCircleIcon /></IconButton>
+
           </Toolbar>
         </AppBar>
         {/* The main content block*/}

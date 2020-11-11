@@ -1,3 +1,4 @@
+import SettingsIcon from '@material-ui/icons/Settings';
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
@@ -30,7 +31,7 @@ const useStyles = makeStyles({
   },
 });
 
-function Share() {
+function Settings() {
   const classes = useStyles();
   const [state, setState] = React.useState({
     top: false,
@@ -86,8 +87,8 @@ function Share() {
     <div>
       {['top'].map((anchor) => (
         <React.Fragment key={anchor}>
-          <IconButton onClick={toggleDrawer(anchor, true)} aria-label="display more actions" edge="end" color="inherit"><ShareIcon /></IconButton>
-          <Drawer anchor={'top'} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
+          <IconButton onClick={toggleDrawer(anchor, true)} aria-label="display more actions" edge="end" color="inherit"><SettingsIcon /></IconButton>
+          <Drawer anchor={'right'} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
             {list(anchor)}
           </Drawer>
         </React.Fragment>
@@ -100,4 +101,4 @@ function Share() {
 
 
 
-export default Share;
+export default Settings;
