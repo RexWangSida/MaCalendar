@@ -16,17 +16,18 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import TextField from '@material-ui/core/TextField';
 //Icon
 import MoreIcon from '@material-ui/icons/MoreVert';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import SearchIcon from '@material-ui/icons/Search';
+import Tooltip from '@material-ui/core/Tooltip';
 //dependency
 import Calendar from './component/Calendar'
 import Share from './component/Share'
 import Settings from './component/Settings';
-
-
 import MenuDrawer from './component/MenuDrawer'
+import TableCalendar from './component/TableCalendar'
 //global const
 const drawerWidth = 310;
 const styles = (theme) => ({
@@ -135,59 +136,104 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+        search:false,
         open:false, //whether the drawer is open
-        view:"Week", //the view of the datepicker and the Calendar
-        checked:["private","work"],//checkbox
+        view:"Table", //the view of the datepicker and the Calendar
+        checked:["4hc3","work","private","4te3"],//checkbox
         date:new Date(),//currentDate
         themeColor:"#3f51b5",
-        events:[],
         event:[
             {
-              title: 'Website Re-Design Plan',
-              startDate: new Date(2020, 10, 11, 9, 35),//month is zero-indexed
-              endDate: new Date(2020, 10, 11, 10, 35),
+              title: '4HC3 Lecture',
+              startDate: new Date(2020, 8, 8, 11, 30),//month is zero-indexed
+              endDate: new Date(2020, 8, 8, 12, 20),
               id: 0,
-              location: 'Room 1',
-              group:"work",
-              notes:"lalalalalal",
-              rRule: "RRULE:FREQ=WEEKLY;INTERVAL=1;COUNT=30"
+              location: 'Virtual',
+              group:"4hc3",
+              notes:"About UI",
+              rRule: "RRULE:FREQ=WEEKLY;INTERVAL=1;COUNT=16"
             }, {
-              title: 'Book Flights to San Fran for Sales Trip',
-              startDate: new Date(2020, 10, 12, 9, 35),//month is zero-indexed
-              endDate: new Date(2020, 10, 12, 10, 35),
+              title: '4HC3 Lecture',
+              startDate: new Date(2020, 8, 10, 11, 30),//month is zero-indexed
+              endDate: new Date(2020, 8, 10, 12, 20),
               id: 1,
-              location: 'Room 1',
-              group:"private",
-              notes:"lalalalalal"
+              location: 'Virtual',
+              group:"4hc3",
+              notes:"About UI",
+              rRule: "RRULE:FREQ=WEEKLY;INTERVAL=1;COUNT=16"
             }, {
-              title: 'Install New Router in Dev Room',
-              startDate: new Date(2020, 10, 11, 12, 35),//month is zero-indexed
-              endDate: new Date(2020, 10, 11, 15, 35),
+              title: '4HC3 Lecture',
+              startDate: new Date(2020, 8, 11, 11, 30),//month is zero-indexed
+              endDate: new Date(2020, 8, 11, 12, 20),
               id: 2,
-              location: 'Room 2',
+              location: 'Virtual',
+              group:"4hc3",
+              notes:"About UI",
+              rRule: "RRULE:FREQ=WEEKLY;INTERVAL=1;COUNT=16"
+            },
+            {
+              title: '4TE3 Lecture',
+              startDate: new Date(2020, 8 ,11, 8, 30),//month is zero-indexed
+              endDate: new Date(2020, 8, 11, 11, 30),
+              id: 3,
+              location: 'Virtual',
+              group:"4te3",
+              notes:"About Optimization",
+              rRule: "RRULE:FREQ=WEEKLY;INTERVAL=1;COUNT=16"
+            },
+            {
+              title: 'Do exercise',
+              startDate: new Date(2020, 8, 11, 12, 35),//month is zero-indexed
+              endDate: new Date(2020, 8, 11, 15, 35),
+              id: 4,
+              location: 'Gym',
               group:"private",
-              notes:"lalalalalal"
+              notes:"Be better!!!"
             },
           ],
           resources:[{
             fieldName: 'group',
             instances: [
-              { id: 'private', text: 'Private', color: '#EC407A' },
-              { id: 'work', text: 'Work', color: '#7E57C2' },
+              { id: '4hc3', text: '4HC3', color: '#d00000' },
+              { id: '4te3', text: '4TE3', color: '#7E57C2' },
+              { id: 'private', text: 'Private', color: '#a8dadc' },
+              { id: 'work', text: 'Work', color: '#2a9d8f' },
             ],
           }],
+          searchResult:[]
     };
     this.searchOption = [
-      { title: 'The Shawshank Redemption', year: 1994 },
-      { title: 'The Godfather', year: 1972 },
-      { title: 'The Godfather: Part II', year: 1974 },
-      { title: 'The Dark Knight', year: 2008 },
+      { title: '4hc3', type:"group"},
+      { title: 'private', type:"group"},
+      { title: '4te3', type:"group" },
+      { title: 'work', type:"group" },
+      { title: '4HC3 Lecture', type:"event" },
+      { title: '4TE3 lecture', type: "event"},
+      { title: 'Do exercise', type: "event"},
     ];
     this.handleToggle = this.handleToggle.bind(this);
     this.changeDate = this.changeDate.bind(this);
     this.commitChanges = this.commitChanges.bind(this);
     this.changeGroupColor = this.changeGroupColor.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
+  //handle search value changed
+  handleSearch(event,value,reason){
+    if(reason === "reset"){
+      var tmp = []
+      const events = this.state.event;
+      for(var i = 0; i < events.length;i++){
+        if(events[i].title === value || events[i].group === value){
+          tmp = [...tmp,events[i]]
+        }
+      }
+      console.log("tmp",tmp)
+      this.setState({search:true,searchResult:tmp})
+    }else if(reason === "clear"){
+      this.setState({search:false})
+    }
+  }
+  //handle the change to groups' color
   changeGroupColor(id,text,color){
     const instances = this.state.resources[0].instances
     for(var i=0;i<instances.length;i++){
@@ -202,7 +248,6 @@ class App extends React.Component {
   }
   //handle delet/edit/modify of events
   commitChanges({ added, changed, deleted }) {
-    console.log(changed)
     this.setState((state) => {
       let { event } = state;
       if (added) {
@@ -245,8 +290,15 @@ class App extends React.Component {
     const { classes, theme} = this.props;
     const handleDrawerOpen = () => { this.setState({ open: true })};
     const handleDrawerClose = () => {this.setState({ open: false })};
-
     const handleChange = (event) => {this.setState({view:event.target.value});};
+    var mainDisplay = <Calendar checked={this.state.checked} style={{padding:"30px"}} data={this.state.event} commitChanges={this.commitChanges} date={this.state.date} view={this.state.view} resources={this.state.resources}/>
+    if(this.state.view === "Table"){
+      mainDisplay = <TableCalendar events={this.state.event} themeColor={this.state.themeColor}/>
+    }
+    if(this.state.search === true){
+      console.log("search sth")
+      mainDisplay = <TableCalendar events={this.state.searchResult} themeColor={this.state.themeColor}/>
+    }
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -255,36 +307,32 @@ class App extends React.Component {
           <Toolbar>
             <MenuDrawer changeGroupColor={this.changeGroupColor} handleToggle={this.handleToggle} groups={this.state.resources[0].instances} open={this.state.open} handleOpen={handleDrawerOpen.bind(this)} handleClose={handleDrawerClose.bind(this)} date={this.state.date} changeDate={this.changeDate} checked={this.state.checked}/>
             <Typography className={classes.title} variant="h6" noWrap>MaCalendar</Typography>
+            {/* Selection of View*/}
             <FormControl variant="outlined" className={classes.formControl}>
               <InputLabel id="select-view">View</InputLabel>
               <Select labelId="select-view" value={this.state.view} onChange={handleChange} label="View">
                 <MenuItem value={"Day"}>DAY</MenuItem>
                 <MenuItem value={"Week"}>WEEK</MenuItem>
                 <MenuItem value={"Month"}>MONTH</MenuItem>
+                <MenuItem value={"Table"}>TABLE</MenuItem>
               </Select>
             </FormControl>
+            {/* The searchBar with Autocomplete*/}
             <div className={classes.search}>
                 <div className={classes.searchIcon}>
                   <SearchIcon />
                 </div>
                 <Autocomplete
                   id="searchBar"
-                  freeSolo
+                  onInputChange={(event,value,reason)=>this.handleSearch(event,value,reason)}
+                  selectOnFocus
+                  clearOnEscape
                   options={this.searchOption.map((option) => option.title)}
-                  renderInput={(params) => (
-                      <InputBase
-                        inputProps={{ 'aria-label': 'search' }}
-                        placeholder="Search…"
-                        ref={params.InputProps.ref}
-                        inputProps={params.inputProps}
-                        autoFocus
-                        className={classes.inputBase}
-                        classes={{root: classes.inputRoot,input: classes.inputInput,}}
-                      />)}
+                  renderInput={(params) => (<TextField {...params} style={{width:"200px",height:"35px",padding:"10px",margin:"0px 0px 5px 40px"}} margin="normal" />)}
                 />
             </div>
             <Share/>
-            <IconButton aria-label="display more actions" edge="end" color="inherit"><MoreIcon /></IconButton>
+            <Tooltip title="Theme"><IconButton aria-label="display more actions" edge="end" color="inherit"><MoreIcon /></IconButton></Tooltip>
             <Settings/>
             <IconButton aria-label="display more actions" edge="end" color="inherit"><AccountCircleIcon /></IconButton>
 
@@ -293,7 +341,7 @@ class App extends React.Component {
         {/* The main content block*/}
         <main className={clsx(classes.content, {[classes.contentShift]: this.state.open,})}>
           <div className={classes.drawerHeader} />
-          <Calendar checked={this.state.checked} style={{padding:"30px"}} data={this.state.event} commitChanges={this.commitChanges} date={this.state.date} view={this.state.view} resources={this.state.resources}/>
+            {mainDisplay}
         </main>
       </div>
     )};
