@@ -73,6 +73,7 @@ class Calendar extends React.PureComponent{
           <ConfirmationDialog />
           <Appointments />
           <AppointmentTooltip
+            showDeleteButton
             showOpenButton
             contentComponent={Content}
             commandButtonComponent={CommandButton}
