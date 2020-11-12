@@ -18,6 +18,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Grid from '@material-ui/core/Grid';
 import Room from '@material-ui/icons/Room';
+import NotesIcon from '@material-ui/icons/Notes';
 import { withStyles } from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import classNames from 'clsx';
@@ -93,7 +94,7 @@ const Content = withStyles(style, { name: 'Content' })(({
         <span>{appointmentData.location}</span>
       </Grid>
       <Grid item xs={2} className={classes.textCenter}>
-        <Room className={classes.icon} />
+        <NotesIcon className={classes.icon} />
       </Grid>
       <Grid item xs={10}>
         <span>{appointmentData.notes}</span>

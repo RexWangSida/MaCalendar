@@ -24,7 +24,7 @@ export default function TableCalendar(props) {
   const StyledTableCell = withStyles((theme) => ({
     head: {
       backgroundColor: props.themeColor,
-      color: theme.palette.common.white,
+      color: props.headFontColor
     },
     body: {
       fontSize: 14,
@@ -33,16 +33,16 @@ export default function TableCalendar(props) {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const rows = props.events
+  const rows = props.events.filter(appointment => props.checked.indexOf(appointment.group) !== -1);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
-
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
   return (
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>
@@ -58,12 +58,15 @@ export default function TableCalendar(props) {
           </TableHead>
           <TableBody>
             {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+              const week = ["Sun ","Mon ","Tue ","Wed ","Thu ","Fri ","Sat "]
+              const startDate = week[row.startDate.getDay()]+row.startDate.toTimeString().substring(0,5)
+              const endDate = week[row.endDate.getDay()]+row.endDate.toTimeString().substring(0,5)
               return (
                 <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                 <TableCell>{row.title}</TableCell>
                 <TableCell>{row.group}</TableCell>
-                <TableCell>{row.startDate.toString()}</TableCell>
-                <TableCell>{row.endDate.toString()}</TableCell>
+                <TableCell>{startDate}</TableCell>
+                <TableCell>{endDate}</TableCell>
                 <TableCell>{row.notes}</TableCell>
                 </TableRow>
               );

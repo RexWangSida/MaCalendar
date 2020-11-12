@@ -137,8 +137,8 @@ class App extends React.Component {
     super(props);
     this.state = {
         search:false,
-        open:false, //whether the drawer is open
-        view:"Table", //the view of the datepicker and the Calendar
+        open:true, //whether the drawer is open
+        view:"Week", //the view of the datepicker and the Calendar
         checked:["4hc3","work","private","4te3"],//checkbox
         date:new Date(),//currentDate
         themeColor:"#3f51b5",
@@ -293,11 +293,11 @@ class App extends React.Component {
     const handleChange = (event) => {this.setState({view:event.target.value});};
     var mainDisplay = <Calendar checked={this.state.checked} style={{padding:"30px"}} data={this.state.event} commitChanges={this.commitChanges} date={this.state.date} view={this.state.view} resources={this.state.resources}/>
     if(this.state.view === "Table"){
-      mainDisplay = <TableCalendar events={this.state.event} themeColor={this.state.themeColor}/>
+      mainDisplay = <TableCalendar checked={this.state.checked} events={this.state.event} themeColor={'#e9ecef'} headFontColor={"black"}/>
     }
     if(this.state.search === true){
       console.log("search sth")
-      mainDisplay = <TableCalendar events={this.state.searchResult} themeColor={this.state.themeColor}/>
+      mainDisplay = <TableCalendar checked={this.state.checked} events={this.state.searchResult} themeColor={this.state.themeColor} headFontColor={"white"}/>
     }
     return (
       <div className={classes.root}>
