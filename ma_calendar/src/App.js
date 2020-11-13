@@ -28,6 +28,8 @@ import Share from './component/Share'
 import Settings from './component/Settings';
 import MenuDrawer from './component/MenuDrawer'
 import TableCalendar from './component/TableCalendar'
+import ImportClasses from './component/ImportClasses'
+
 //global const
 const drawerWidth = 310;
 const styles = (theme) => ({
@@ -331,6 +333,7 @@ class App extends React.Component {
                   renderInput={(params) => (<TextField {...params} style={{width:"200px",height:"35px",padding:"10px",margin:"0px 0px 5px 40px"}} margin="normal" />)}
                 />
             </div>
+            <ImportClasses/>
             <Share/>
             <Tooltip title="Theme"><IconButton aria-label="display more actions" edge="end" color="inherit"><MoreIcon /></IconButton></Tooltip>
             <Settings/>
