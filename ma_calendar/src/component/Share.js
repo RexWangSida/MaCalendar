@@ -21,6 +21,7 @@ import EmailIcon from '@material-ui/icons/Email';
 import TextField from '@material-ui/core/TextField';
 import Sendmail from "./Sendmail";
 import Tooltip from '@material-ui/core/Tooltip';
+import Checkbox from '@material-ui/core/Checkbox';
 
 const useStyles = makeStyles({
   list: {
@@ -31,11 +32,17 @@ const useStyles = makeStyles({
   },
 });
 
-function Share() {
+function Share(props) {
   const classes = useStyles();
   const [state, setState] = React.useState({
     top: false,
   });
+
+  const [checked, setChecked] = React.useState(true);
+
+    const handleCheck = (event) => {
+        setChecked(event.target.checked);
+    };
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -69,8 +76,15 @@ function Share() {
       </List>
       <List>
           <ListItem >
-            <ListItemText>Courses <Divider/></ListItemText>
+            <ListItemText>Events<Divider/></ListItemText>
           </ListItem>
+          <ListItem>
+          <ListItemText>{
+              props.event.map(function(item){
+              return <ListItemText><Checkbox onChange={handleCheck}/> {item.title}</ListItemText>}
+            )}
+            </ListItemText>
+            </ListItem>
       </List>
       <Divider />
       <List>

@@ -9,10 +9,7 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import IconButton from '@material-ui/core/IconButton';
-import SearchIcon from '@material-ui/icons/Search';
 import ShareIcon from '@material-ui/icons/Share';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
@@ -55,24 +52,23 @@ function Settings() {
 
       <List>
           <ListItem>
-            <ListItemIcon><ShareIcon/></ListItemIcon>
-            <ListItemText primary = {"Share with your frineds"}/>
+            <ListItemIcon><SettingsIcon/></ListItemIcon>
+            <ListItemText primary = {"Settings"}/>
           </ListItem>
 
       </List>
       <Divider />
       <List>
           <ListItem >
-            <ListItemIcon><EmailIcon/></ListItemIcon>
-            <TextField id="filled-basic" label="Share via email" variant="filled" />
+          <ListItemText>General <Divider/></ListItemText>
           </ListItem>
-      </List>
-      <List>
+          <ListItem>
+          <ListItemText>Default View</ListItemText>
+          </ListItem>
           <ListItem >
             <ListItemText>Courses <Divider/></ListItemText>
           </ListItem>
       </List>
-      <Divider />
       <List>
           <ListItem className = "">
               <IconButton><FacebookIcon/></IconButton>

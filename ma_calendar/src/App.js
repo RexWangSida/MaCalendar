@@ -1,7 +1,7 @@
 import './App.css';
 import React from 'react'
 import clsx from 'clsx';
-import {fade,withStyles} from '@material-ui/core/styles';
+import {fade,withStyles, createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
 //components
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import AppBar from '@material-ui/core/AppBar';
@@ -31,6 +31,13 @@ import MenuDrawer from './component/MenuDrawer'
 import TableCalendar from './component/TableCalendar'
 //global const
 const drawerWidth = 310;
+
+const theme = createMuiTheme({
+  palette: {
+    type: "dark",
+  }
+});
+
 const styles = (theme) => ({
   root: {
     display: 'flex',
@@ -333,7 +340,7 @@ class App extends React.Component {
                 />
             </div>
             <ImportClasses/>
-            <Share/>
+            <Share event= {this.state.event}/>
             <Theme/>
             <Settings/>
             <IconButton aria-label="display more actions" edge="end" color="inherit"><AccountCircleIcon /></IconButton>

@@ -1,11 +1,19 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import * as Theme from "./component/Theme";
+import CustomThemeProvider from './component/CustomThemeProvider'
 
 ReactDOM.render(
-    <App />,
+  <CustomThemeProvider>
+    {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+    <CssBaseline />
+    <App />
+  </CustomThemeProvider>,
   document.getElementById('root')
 );
 
