@@ -1,3 +1,4 @@
+'use strict'
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
@@ -11,16 +12,17 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import IconButton from '@material-ui/core/IconButton';
-import SearchIcon from '@material-ui/icons/Search';
-import ShareIcon from '@material-ui/icons/Share';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import LinkedInIcon from '@material-ui/icons/LinkedIn';
-import InstagramIcon from '@material-ui/icons/Instagram';
-import { Icon } from '@material-ui/core';
-import EmailIcon from '@material-ui/icons/Email';
-import TextField from '@material-ui/core/TextField';
-import Sendmail from "./Sendmail";
+import Switch from '@material-ui/core/Switch';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Tooltip from '@material-ui/core/Tooltip';
+import MoreIcon from '@material-ui/icons/MoreVert';
+import BrushIcon from '@material-ui/icons/Brush';
+import { createMuiTheme } from '@material-ui/core/styles';
+import purple from '@material-ui/core/colors/purple';
+import reactCSS from 'reactcss'
+import { SketchPicker, TwitterPicker} from 'react-color'
+import ColorPicker from './ColorPicker'
 
 const useStyles = makeStyles({
   list: {
@@ -31,11 +33,20 @@ const useStyles = makeStyles({
   },
 });
 
+
+
 function Share() {
   const classes = useStyles();
   const [state, setState] = React.useState({
     top: false,
+    
   });
+  const [checked, setChecked] = React.useState(false);
+
+  const toggleChecked = () => {
+    setChecked((prev) => !prev);
+  };
+
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -55,31 +66,34 @@ function Share() {
 
       <List>
           <ListItem>
-            <ListItemIcon><ShareIcon/></ListItemIcon>
-            <ListItemText primary = {"Share with your frineds"}/>
+            <ListItemIcon><BrushIcon/></ListItemIcon>
+            <ListItemText primary = {"Theme"}/>
           </ListItem>
 
       </List>
       <Divider />
       <List>
           <ListItem >
-            <ListItemIcon><EmailIcon/></ListItemIcon>
-            <Sendmail/>
+          <ColorPicker/>
           </ListItem>
       </List>
       <List>
           <ListItem >
-            <ListItemText>Courses <Divider/></ListItemText>
+          <ColorPicker/>
           </ListItem>
       </List>
-      <Divider />
       <List>
-          <ListItem className = "">
-              <IconButton><FacebookIcon onClick={event =>  window.location.href='https://www.facebook.com/'}/></IconButton>
-              <IconButton><LinkedInIcon onClick={event =>  window.location.href='https://www.linkedin.com/'}/></IconButton>
-              <IconButton><InstagramIcon onClick={event =>  window.location.href='https://www.instagram.com/'}/></IconButton>
+          <ListItem >
+          <FormControlLabel
+        control={<Switch size="small" checked={checked} onChange={toggleChecked} />}
+        label="Small"/>
           </ListItem>
       </List>
+
+      <FormControlLabel
+        control={<Switch checked={checked} onChange={toggleChecked} />}
+        label="Normal"
+      />
     </div>
   );
   return (
@@ -87,7 +101,7 @@ function Share() {
     <div>
       {['top'].map((anchor) => (
         <React.Fragment key={anchor}>
-        <Tooltip title="Share"><IconButton onClick={toggleDrawer(anchor, true)} aria-label="display more actions" edge="end" color="inherit"><ShareIcon /></IconButton></Tooltip>
+        <Tooltip title="Theme"><IconButton onClick={toggleDrawer(anchor, true)} aria-label="display more actions" edge="end" color="inherit"><MoreIcon /></IconButton></Tooltip>
           <Drawer anchor={'top'} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
             {list(anchor)}
           </Drawer>

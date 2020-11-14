@@ -18,18 +18,16 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 //Icon
-import MoreIcon from '@material-ui/icons/MoreVert';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import SearchIcon from '@material-ui/icons/Search';
 import Tooltip from '@material-ui/core/Tooltip';
 //dependency
 import Calendar from './component/Calendar'
-import Share from './component/Share'
+import Share from './component/Share';
+import Theme from './component/Theme';
 import Settings from './component/Settings';
 import MenuDrawer from './component/MenuDrawer'
 import TableCalendar from './component/TableCalendar'
-import ImportClasses from './component/ImportClasses'
-
 //global const
 const drawerWidth = 310;
 const styles = (theme) => ({
@@ -333,9 +331,8 @@ class App extends React.Component {
                   renderInput={(params) => (<TextField {...params} style={{width:"200px",height:"35px",padding:"10px",margin:"0px 0px 5px 40px"}} margin="normal" />)}
                 />
             </div>
-            <ImportClasses/>
             <Share/>
-            <Tooltip title="Theme"><IconButton aria-label="display more actions" edge="end" color="inherit"><MoreIcon /></IconButton></Tooltip>
+            <Theme/>
             <Settings/>
             <IconButton aria-label="display more actions" edge="end" color="inherit"><AccountCircleIcon /></IconButton>
 
