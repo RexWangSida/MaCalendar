@@ -18,7 +18,112 @@ import MosaicLogo from './img/mosaic_logo.jpg';
 import AvenueLogo from './img/avenue_logo.jpg';
 import OscarLogo from './img/oscar_logo.png';
 
-function TabPanel(props) {
+class TabPanel extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { value: 0, checked: true, HC3: false, ass2: false, quizz5: false, final: false, Coop: false };
+    }
+
+    render() {
+
+        const handleTab = (event, newValue) => {
+            this.setState({ value: newValue });
+        };
+
+        const handleCheck = (event) => {
+            this.setState({ checked: event.target.checked });
+        };
+
+        return (
+            <div>
+                <Tabs value={this.state.value} onChange={handleTab} aria-label="simple tabs example">
+                    <Tab icon={<img src={MosaicLogo}></img>} {...a11yProps(0)} />
+                    <Tab icon={<img src={AvenueLogo}></img>} {...a11yProps(1)} />
+                    <Tab icon={<img src={OscarLogo}></img>} {...a11yProps(2)} />
+                </Tabs>
+                <Panel value={this.state.value} index={0}>
+                    <Accordion  >
+                        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
+                            <Typography >Select Terms</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <FormGroup row>
+                                <FormControlLabel control={<Checkbox onChange={handleCheck} name="2020 Fall" color="primary" />} label="2020 Fall" />
+                                <FormControlLabel control={<Checkbox onChange={handleCheck} name="2021 Winter" color="primary" />} label="2021 Winter" />
+                            </FormGroup>
+                        </AccordionDetails>
+                    </Accordion>
+                    <Accordion >
+                        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content" id="panel2a-header" >
+                            <Typography >Select Courses</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <FormGroup row>
+                                <FormControlLabel control={<Checkbox onChange={this.props.CourseChecked} name="4HC3" color="primary" />} label="4HC3" />
+                                <FormControlLabel control={<Checkbox onChange={handleCheck} name="4A03" color="primary" />} label="4A03" />
+                                <FormControlLabel control={<Checkbox onChange={handleCheck} name="4G06" color="primary" />} label="4G06" />
+                            </FormGroup>
+                        </AccordionDetails>
+                    </Accordion>
+                </Panel>
+                <Panel value={this.state.value} index={1}>
+                    <Accordion  >
+                        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
+                            <Typography >Select Courses</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <FormGroup row>
+                                <FormControlLabel control={<Checkbox onChange={handleCheck} name="4HC3" color="primary" />} label="4HC3" />
+                                <FormControlLabel control={<Checkbox onChange={handleCheck} name="4A03" color="primary" />} label="4A03" />
+                                <FormControlLabel control={<Checkbox onChange={handleCheck} name="4G06" color="primary" />} label="4G06" />
+                            </FormGroup>
+                        </AccordionDetails>
+                    </Accordion>
+                    <Accordion>
+                        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content" id="panel2a-header" >
+                            <Typography >Select Tasks</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <FormGroup row>
+                                <FormControlLabel control={<Checkbox onChange={handleCheck} name="Assignment 2" color="primary" />} label="Assignment 2" />
+                                <FormControlLabel control={<Checkbox onChange={this.props.TaskChecked} name="Quizz 5" color="primary" />} label="Quizz 5" />
+                                <FormControlLabel control={<Checkbox onChange={this.props.TaskChecked} name="Final Exam" color="primary" />} label="Final Exam" />
+                            </FormGroup>
+                        </AccordionDetails>
+                    </Accordion>
+                </Panel>
+                <Panel value={this.state.value} index={2}>
+                    <Accordion >
+                        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
+                            <Typography >Select Categories</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <FormGroup row>
+                                <FormControlLabel control={<Checkbox onChange={handleCheck} name="Careers" color="primary" />} label="Careers" />
+                                <FormControlLabel control={<Checkbox onChange={handleCheck} name="Student Services" color="primary" />} label="Student Services" />
+                                <FormControlLabel control={<Checkbox onChange={handleCheck} name="Academic Skills" color="primary" />} label="Academic Skills" />
+                            </FormGroup>
+                        </AccordionDetails>
+                    </Accordion>
+                    <Accordion>
+                        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content" id="panel2a-header" >
+                            <Typography >Select Events</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <FormGroup row>
+                                <FormControlLabel control={<Checkbox onChange={this.props.EventChecked} name="Co-op Interview" color="primary" />} label="Co-op Interview" />
+                                <FormControlLabel control={<Checkbox onChange={handleCheck} name="Experience Building" color="primary" />} label="Experience Building" />
+                                <FormControlLabel control={<Checkbox onChange={handleCheck} name="Resume and Cover Letter Writing" color="primary" />} label="Resume Cover Letter Writing" />
+                            </FormGroup>
+                        </AccordionDetails>
+                    </Accordion>
+                </Panel>
+            </div>
+        );
+    }
+}
+
+function Panel(props) {
 
     const { children, value, index, ...other } = props;
 
@@ -57,120 +162,4 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function SimpleTabs() {
-    const classes = useStyles();
-    const [value, setValue] = React.useState(0);
-
-    const handleTab = (event, newValue) => {
-        setValue(newValue);
-    };
-
-    const [checked, setChecked] = React.useState(true);
-
-    const handleCheck = (event) => {
-        setChecked(event.target.checked);
-    };
-
-    const CourseChecked = (event) => {
-        setChecked(event.target.checked);
-        //setState here
-    }
-
-    const TaskChecked = (event) => {
-        setChecked(event.target.checked);
-        //setState here
-    }
-
-    const EventChecked = (event) => {
-        setChecked(event.target.checked);
-        //setState here
-    }
-
-
-return (
-    <div className={classes.root}>
-        <Tabs value={value} onChange={handleTab} aria-label="simple tabs example">
-            <Tab icon={<img src={MosaicLogo}></img>} {...a11yProps(0)} />
-            <Tab icon={<img src={AvenueLogo}></img>} {...a11yProps(1)} />
-            <Tab icon={<img src={OscarLogo}></img>} {...a11yProps(2)} />
-        </Tabs>
-        <TabPanel value={value} index={0}>
-            <Accordion  >
-                <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
-                    <Typography >Select Terms</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                    <FormGroup row>
-                        <FormControlLabel control={<Checkbox onChange={handleCheck} name="2020 Fall" color="primary" />} label="2020 Fall" />
-                        <FormControlLabel control={<Checkbox onChange={handleCheck} name="2021 Winter" color="primary" />} label="2021 Winter" />
-                    </FormGroup>
-                </AccordionDetails>
-            </Accordion>
-            <Accordion >
-                <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content" id="panel2a-header" >
-                    <Typography >Select Courses</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                    <FormGroup row>
-                        <FormControlLabel control={<Checkbox onChange={CourseChecked} name="4HC3" color="primary" />} label="4HC3" />
-                        <FormControlLabel control={<Checkbox onChange={handleCheck} name="4A03" color="primary" />} label="4A03" />
-                        <FormControlLabel control={<Checkbox onChange={handleCheck} name="4G06" color="primary" />} label="4G06" />
-                    </FormGroup>
-                </AccordionDetails>
-            </Accordion>
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-            <Accordion  >
-                <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
-                    <Typography >Select Courses</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                    <FormGroup row>
-                        <FormControlLabel control={<Checkbox onChange={handleCheck} name="4HC3" color="primary" />} label="4HC3" />
-                        <FormControlLabel control={<Checkbox onChange={handleCheck} name="4A03" color="primary" />} label="4A03" />
-                        <FormControlLabel control={<Checkbox onChange={handleCheck} name="4G06" color="primary" />} label="4G06" />
-                    </FormGroup>
-                </AccordionDetails>
-            </Accordion>
-            <Accordion>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content" id="panel2a-header" >
-                    <Typography >Select Tasks</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                    <FormGroup row>
-                        <FormControlLabel control={<Checkbox onChange={handleCheck} name="Assignment 2" color="primary" />} label="Assignment 2" />
-                        <FormControlLabel control={<Checkbox onChange={TaskChecked} name="Quizz 5" color="primary" />} label="Quizz 5" />
-                        <FormControlLabel control={<Checkbox onChange={TaskChecked} name="Final Exam" color="primary" />} label="Final Exam" />
-                    </FormGroup>
-                </AccordionDetails>
-            </Accordion>
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-            <Accordion >
-                <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
-                    <Typography >Select Categories</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                    <FormGroup row>
-                        <FormControlLabel control={<Checkbox onChange={handleCheck} name="Careers" color="primary" />} label="Careers" />
-                        <FormControlLabel control={<Checkbox onChange={handleCheck} name="Student Services" color="primary" />} label="Student Services" />
-                        <FormControlLabel control={<Checkbox onChange={handleCheck} name="Academic Skills" color="primary" />} label="Academic Skills" />
-                    </FormGroup>
-                </AccordionDetails>
-            </Accordion>
-            <Accordion>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content" id="panel2a-header" >
-                    <Typography >Select Events</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                    <FormGroup row>
-                        <FormControlLabel control={<Checkbox onChange={EventChecked} name="Co-op Interview" color="primary" />} label="Co-op Interview" />
-                        <FormControlLabel control={<Checkbox onChange={handleCheck} name="Experience Building" color="primary" />} label="Experience Building" />
-                        <FormControlLabel control={<Checkbox onChange={handleCheck} name="Resume and Cover Letter Writing" color="primary" />} label="Resume Cover Letter Writing" />
-                    </FormGroup>
-                </AccordionDetails>
-            </Accordion>
-        </TabPanel>
-    </div>
-);
-}
+export default TabPanel;

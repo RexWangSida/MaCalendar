@@ -272,6 +272,10 @@ class App extends React.Component {
       return { event };
     });
   }
+  //add new events
+  addEvent(title,startDate,endDate,description,alarm,group="default",period="none"){
+
+  }
   // Handle the states of checkbox
   handleToggle(value){
     const currentIndex = this.state.checked.indexOf(value);
@@ -335,9 +339,9 @@ class App extends React.Component {
                   renderInput={(params) => (<TextField {...params} style={{width:"200px",height:"35px",padding:"10px",margin:"0px 0px 5px 40px"}} margin="normal" />)}
                 />
             </div>
-            <ImportClasses/>
+            <ImportClasses commitChanges={this.commitChanges}/>
             <Share event= {this.state.event}/>
-            <Theme changeGroupColor={this.changeGroupColor} handleToggle={this.handleToggle} groups={this.state.resources[0].instances}/>
+            <Theme/>
             <Settings/>
             <IconButton aria-label="display more actions" edge="end" color="inherit"><AccountCircleIcon /></IconButton>
 
