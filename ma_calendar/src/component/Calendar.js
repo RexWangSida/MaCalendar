@@ -19,9 +19,11 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import Grid from '@material-ui/core/Grid';
 import Room from '@material-ui/icons/Room';
 import NotesIcon from '@material-ui/icons/Notes';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles} from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import classNames from 'clsx';
+
+
 
 const style = (theme) => ({
   icon: {
@@ -34,12 +36,12 @@ const style = (theme) => ({
     backgroundColor: 'rgba(255,255,255,0.65)',
   },
   todayCell: {
-    backgroundColor: fade(theme.palette.primary.main, 0.1),
+    backgroundColor: fade('#FB7060', 0.1),
     '&:hover': {
-      backgroundColor: fade(theme.palette.primary.main, 0.14),
+      backgroundColor: fade('#FB7060', 0.14),
     },
     '&:focus': {
-      backgroundColor: fade(theme.palette.primary.main, 0.16),
+      backgroundColor: fade('#FB7060', 0.16),
     },
   },
   weekendCell: {
@@ -52,7 +54,7 @@ const style = (theme) => ({
     },
   },
   today: {
-    backgroundColor: fade(theme.palette.primary.main, 0.16),
+    backgroundColor: fade('#FB7060', 0.16),
   },
   weekend: {
     backgroundColor: fade(theme.palette.action.disabledBackground, 0.06),
@@ -106,7 +108,7 @@ const Content = withStyles(style, { name: 'Content' })(({
 const CommandButton = withStyles(style, { name: 'CommandButton' })(({
   classes, ...restProps
 }) => (
-  <AppointmentTooltip.CommandButton {...restProps} className={classes.commandButton} />
+  <AppointmentTooltip.CommandButton {...restProps} style={{backgroundColor: '#FB7060'}} className={classes.commandButton} />
 ));
 
 class Calendar extends React.PureComponent{
@@ -130,7 +132,7 @@ class Calendar extends React.PureComponent{
       <Paper>
         <Scheduler data={shownEvents} height={900}>
           <ViewState currentDate={this.props.date} currentViewName={this.props.view}/>
-          <EditingState onCommitChanges={this.props.commitChanges}/>
+          <EditingState onCommitChanges={this.props.commitChanges}/
           <IntegratedEditing />
           <DayView startDayHour={7} endDayHour={20}/>
           <WeekView startDayHour={7} endDayHour={20} timeTableCellComponent={TimeTableCell} dayScaleCellComponent={DayScaleCell}/>

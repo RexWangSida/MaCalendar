@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles,  MuiThemeProvider } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
@@ -22,6 +22,23 @@ import TextField from '@material-ui/core/TextField';
 import Sendmail from "./Sendmail";
 import Tooltip from '@material-ui/core/Tooltip';
 import Checkbox from '@material-ui/core/Checkbox';
+import { createMuiTheme } from '@material-ui/core';
+
+
+export const customTheme = createMuiTheme({
+	palette: {
+		primary: {
+			main: '#FB7060',
+			light:  '#FB7060',
+			dark: '#FB7060',
+      contrastText: "#fff"
+		},
+		secondary: {
+			main: '#FB7060',
+		},
+
+	},
+})
 
 const useStyles = makeStyles({
   list: {
@@ -69,10 +86,12 @@ function Share(props) {
       </List>
       <Divider />
       <List>
+          <MuiThemeProvider theme={customTheme}>
           <ListItem >
             <ListItemIcon><EmailIcon/></ListItemIcon>
             <Sendmail/>
           </ListItem>
+          </MuiThemeProvider>
       </List>
       <List>
           <ListItem >

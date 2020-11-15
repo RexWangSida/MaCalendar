@@ -1,7 +1,7 @@
 import './App.css';
 import React from 'react'
 import clsx from 'clsx';
-import {fade,withStyles, createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
+import {fade,withStyles, createMuiTheme, ThemeProvider, MuiThemeProvider} from '@material-ui/core/styles';
 //components
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import AppBar from '@material-ui/core/AppBar';
@@ -31,6 +31,7 @@ import MenuDrawer from './component/MenuDrawer'
 import TableCalendar from './component/TableCalendar'
 //global const
 const drawerWidth = 310;
+
 
 const theme = createMuiTheme({
   palette: {
@@ -149,7 +150,7 @@ class App extends React.Component {
         view:"Week", //the view of the datepicker and the Calendar
         checked:["4hc3","work","private","4te3"],//checkbox
         date:new Date(),//currentDate
-        themeColor:"#3f51b5",
+        themeColor:'#fb7060',
         event:[
             {
               title: '4HC3 Lecture',
@@ -311,13 +312,14 @@ class App extends React.Component {
       <div className={classes.root}>
         <CssBaseline />
         {/* The appBar(Nav)*/}
-        <AppBar position="fixed" className={clsx(classes.appBar, {[classes.appBarShift]: this.state.open,})}>
+        <AppBar position="fixed" style={{backgroundColor:'#FB7060',}} className={clsx(classes.appBar, {[classes.appBarShift]: this.state.open,})}>
           <Toolbar>
             <MenuDrawer changeGroupColor={this.changeGroupColor} handleToggle={this.handleToggle} groups={this.state.resources[0].instances} open={this.state.open} handleOpen={handleDrawerOpen.bind(this)} handleClose={handleDrawerClose.bind(this)} date={this.state.date} changeDate={this.changeDate} checked={this.state.checked}/>
             <Typography className={classes.title} variant="h6" noWrap>MaCalendar</Typography>
             {/* Selection of View*/}
             <FormControl variant="outlined" className={classes.formControl}>
               <InputLabel id="select-view">View</InputLabel>
+
               <Select labelId="select-view" value={this.state.view} onChange={handleChange} label="View">
                 <MenuItem value={"Day"}>DAY</MenuItem>
                 <MenuItem value={"Week"}>WEEK</MenuItem>

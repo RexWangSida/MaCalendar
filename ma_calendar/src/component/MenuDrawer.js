@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import DateFnsUtils from '@date-io/date-fns';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles, useTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
@@ -19,9 +19,25 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { DatePicker,MuiPickersUtilsProvider} from "@material-ui/pickers";
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import DayPicker from './DayPicker'
-import ColorPicker from './ColorPicker'
+import DayPicker from './DayPicker';
+import ColorPicker from './ColorPicker';
+import { createMuiTheme } from '@material-ui/core';
 
+
+export const customTheme = createMuiTheme({
+	palette: {
+		primary: {
+			main: '#FB7060',
+			light:  '#FB7060',
+			dark: '#FB7060',
+      contrastText: "#fff"
+		},
+		secondary: {
+			main: '#FB7060',
+		},
+
+	},
+})
 const drawerWidth = 310;
 const useStyles = makeStyles((theme) => ({
   menuButton: {
@@ -65,15 +81,17 @@ export default function MenuDrawer(props) {
           {/* The dawer*/}
           <Drawer className={classes.drawer} variant="persistent" anchor="left" open={props.open}classes={{paper: classes.drawerPaper,}}>
             <div className={classes.drawerHeader} style={{minHeight:"55px"}}>
-              <Button color="primary" style={{marginRight:"180px"}} onClick={()=>props.changeDate(new Date())}>Today</Button>
+              <Button color='#FB7060' style={{marginRight:"180px"}} onClick={()=>props.changeDate(new Date())}>Today</Button>
               <IconButton onClick={props.handleClose}>
                 {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
               </IconButton>
             </div>
             <Divider />
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <MuiThemeProvider theme={customTheme}>
+            <MuiPickersUtilsProvider style={{fontColor:'white'}} utils={DateFnsUtils}>
               <DayPicker date={props.date} changeDate={props.changeDate}/>
             </MuiPickersUtilsProvider>
+            </MuiThemeProvider>
             <Divider />
             <List dense className={classes.listRoot}>
               {props.groups.map((group) => {
