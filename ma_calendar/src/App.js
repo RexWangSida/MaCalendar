@@ -49,7 +49,6 @@ const styles = (theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-
   },
   appBarShift: {
     width: `100%`,
@@ -225,6 +224,7 @@ class App extends React.Component {
     this.commitChanges = this.commitChanges.bind(this);
     this.changeGroupColor = this.changeGroupColor.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.changeThemeColor = this.changeThemeColor.bind(this);
   }
   //handle search value changed
   handleSearch(event,value,reason){
@@ -253,6 +253,12 @@ class App extends React.Component {
         fieldName: 'group',
         instances: instances
       }]
+    })
+  }
+
+  changeThemeColor(color){
+    this.setState({
+      themeColor: color
     })
   }
   //handle delet/edit/modify of events
@@ -312,7 +318,7 @@ class App extends React.Component {
       <div className={classes.root}>
         <CssBaseline />
         {/* The appBar(Nav)*/}
-        <AppBar position="fixed" style={{backgroundColor:'#FB7060',}} className={clsx(classes.appBar, {[classes.appBarShift]: this.state.open,})}>
+        <AppBar position="fixed" style = {{backgroundColor: this.state.themeColor}} className={clsx(classes.appBar, {[classes.appBarShift]: this.state.open,})}>
           <Toolbar>
             <MenuDrawer changeGroupColor={this.changeGroupColor} handleToggle={this.handleToggle} groups={this.state.resources[0].instances} open={this.state.open} handleOpen={handleDrawerOpen.bind(this)} handleClose={handleDrawerClose.bind(this)} date={this.state.date} changeDate={this.changeDate} checked={this.state.checked}/>
             <Typography className={classes.title} variant="h6" noWrap>MaCalendar</Typography>
@@ -343,7 +349,7 @@ class App extends React.Component {
             </div>
             <ImportClasses commitChanges={this.commitChanges}/>
             <Share event= {this.state.event}/>
-            <Theme/>
+            <Theme color={this.state.themeColor} changeThemeColor={this.changeThemeColor}/>
             <Settings/>
             <IconButton aria-label="display more actions" edge="end" color="inherit"><AccountCircleIcon /></IconButton>
 

@@ -7,14 +7,8 @@ import { SketchPicker, TwitterPicker} from 'react-color'
 class ThemeColor extends React.Component {
   state = {
     displayColorPicker: false,
-    color: {
-        r: '63',
-        g: '81',
-        b: '181',
-        a: '100',
-      },
+    color: '#FB7060',
     };
-
 
   handleClick = () => {
     this.setState({ displayColorPicker: !this.state.displayColorPicker })
@@ -25,7 +19,7 @@ class ThemeColor extends React.Component {
   };
 
   handleChange = (color) => {
-    this.setState({ color: color.rgb })
+    this.setState({ color: color.hex })
   };
 
   render() {
@@ -35,7 +29,7 @@ class ThemeColor extends React.Component {
           width: '28px',
           height: '28px',
           borderRadius: '2px',
-          background: `rgba(${ this.state.color.r }, ${ this.state.color.g }, ${ this.state.color.b }, ${ this.state.color.a })`,
+          background: this.props.color,
         },
         swatch: {
           margin:"5px 5px 0px 0px",
@@ -67,7 +61,7 @@ class ThemeColor extends React.Component {
         </div>
         { this.state.displayColorPicker ? <div style={ styles.popover }>
           <div style={ styles.cover } onClick={ this.handleClose }/>
-          <TwitterPicker color={ this.state.color } onChange={ (color)=>this.handleChange} />
+          <TwitterPicker color={ this.props.color } onChange={ (color)=>this.props.changeThemeColor(color.hex)} />
         </div> : null }
 
       </div>

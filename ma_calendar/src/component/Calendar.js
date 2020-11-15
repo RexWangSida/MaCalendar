@@ -132,7 +132,7 @@ class Calendar extends React.PureComponent{
       <Paper>
         <Scheduler data={shownEvents} height={900}>
           <ViewState currentDate={this.props.date} currentViewName={this.props.view}/>
-          <EditingState onCommitChanges={this.props.commitChanges}/
+          <EditingState onCommitChanges={this.props.commitChanges}/>
           <IntegratedEditing />
           <DayView startDayHour={7} endDayHour={20}/>
           <WeekView startDayHour={7} endDayHour={20} timeTableCellComponent={TimeTableCell} dayScaleCellComponent={DayScaleCell}/>

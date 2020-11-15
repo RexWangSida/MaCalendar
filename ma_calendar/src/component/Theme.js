@@ -55,14 +55,14 @@ function Theme(props,{classes}) {
         <div>
             <IconButton onClick={handleClickOpen} edge="end" color="inherit"><BrushIcon /></IconButton>
             <Dialog contentStyle={{width: "200%", maxWidth: "none"}} open={open} onClose={handleClose}>
-                <DialogTitle><BrushIcon />  Theme Setting</DialogTitle>
+                <DialogTitle><BrushIcon />  Theme Setting(Click to modify)</DialogTitle>
                 <DialogContent>
               <List>
 
       </List>
       <List>
           <ListItem >
-          <ThemeColor/>
+          <ThemeColor color = {props.color} changeThemeColor ={(color)=>props.changeThemeColor(color)}/>
           </ListItem>
       </List>
       <List>
