@@ -61,7 +61,7 @@ class ThemeColor extends React.Component {
         </div>
         { this.state.displayColorPicker ? <div style={ styles.popover }>
           <div style={ styles.cover } onClick={ this.handleClose }/>
-          <TwitterPicker color={ this.props.color } onChange={ (color)=>this.props.changeThemeColor(color.hex)} />
+          <TwitterPicker color={ this.props.color} onChange={ (color)=>this.props.changeThemeColor(color.hex)} />
         </div> : null }
 
       </div>

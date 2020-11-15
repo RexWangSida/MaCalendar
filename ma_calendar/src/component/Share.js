@@ -35,7 +35,10 @@ const useStyles = makeStyles({
 });
 
 function Share(props) {
+  
+  const rows = props.event;
   const classes = useStyles();
+  console.log(rows)
   const [state, setState] = React.useState({
     top: false,
   });
@@ -53,6 +56,7 @@ function Share(props) {
 
     setState({ ...state, [anchor]: open });
   };
+
 
   const list = (anchor) => (
     <div
@@ -82,12 +86,26 @@ function Share(props) {
           <ListItem >
             <ListItemText>Events<Divider/></ListItemText>
           </ListItem>
-          <ListItem>
-          <ListItemText>{
-              props.event.map(function(item){
-              return <ListItemText key={item.title}><Checkbox onChange={handleCheck}/> {item.title}</ListItemText>}
-            )}
-            </ListItemText>
+          <ListItem>{
+            rows.map((row) =>{
+              return <ListItemText>{row.title}</ListItemText>})
+              }
+            </ListItem>
+            <ListItem>{
+            rows.map((row) =>{
+              const week = ["Sun ","Mon ","Tue ","Wed ","Thu ","Fri ","Sat "]
+              const startDate = week[row.startDate.getDay()]+row.startDate.toTimeString().substring(0,5)
+              const endDate = week[row.endDate.getDay()]+row.endDate.toTimeString().substring(0,5)
+              return <ListItemText>From {startDate}</ListItemText>})
+              }
+            </ListItem>
+            <ListItem>{
+            rows.map((row) =>{
+              const week = ["Sun ","Mon ","Tue ","Wed ","Thu ","Fri ","Sat "]
+              const startDate = week[row.startDate.getDay()]+row.startDate.toTimeString().substring(0,5)
+              const endDate = week[row.endDate.getDay()]+row.endDate.toTimeString().substring(0,5)
+              return <ListItemText>To {endDate}</ListItemText>})
+              }
             </ListItem>
       </List>
       <Divider />
