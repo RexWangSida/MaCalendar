@@ -14,6 +14,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Box from '@material-ui/core/Box';
 import FormGroup from '@material-ui/core/FormGroup'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import MosaicLogo from './img/mosaic_logo.jpg';
+import AvenueLogo from './img/avenue_logo.jpg';
+import OscarLogo from './img/oscar_logo.png';
 
 function TabPanel(props) {
 
@@ -87,9 +90,9 @@ export default function SimpleTabs() {
 return (
     <div className={classes.root}>
         <Tabs value={value} onChange={handleTab} aria-label="simple tabs example">
-            <Tab label={<><ExpandMoreIcon fontSize="inherit" /> Mosaic</>} {...a11yProps(0)} />
-            <Tab label={<><ExpandMoreIcon fontSize="inherit" /> Avenue</>} {...a11yProps(1)} />
-            <Tab label={<><ExpandMoreIcon fontSize="inherit" /> OscarPlus</>} {...a11yProps(2)} />
+            <Tab icon={<img src={MosaicLogo}></img>} {...a11yProps(0)} />
+            <Tab icon={<img src={AvenueLogo}></img>} {...a11yProps(1)} />
+            <Tab icon={<img src={OscarLogo}></img>} {...a11yProps(2)} />
         </Tabs>
         <TabPanel value={value} index={0}>
             <Accordion  >

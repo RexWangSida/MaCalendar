@@ -37,13 +37,13 @@ function InportClassses() {
         <div>
             <IconButton onClick={handleClickOpen} edge="end" color="inherit"><SaveAltIcon /></IconButton>
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Import events from other sources</DialogTitle>
+                <DialogTitle><SaveAltIcon/> Import events from other sources</DialogTitle>
                 <DialogContent>
                     <DialogContentText>You can import all your courses, tasks, and/or events from McMaster's websites</DialogContentText>
                     <List>
                         <ListItem >
                             <ListItemText primary="You are signed in as:" />
-                            <ListItemIcon> <AccountCircleIcon /> </ListItemIcon>
+                            <ListItemIcon><AccountCircleIcon/></ListItemIcon>
                             <ListItemText primary="caoh8@mcmaster.ca" />
                         </ListItem>
                     </List>
