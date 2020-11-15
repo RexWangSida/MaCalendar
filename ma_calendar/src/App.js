@@ -272,10 +272,6 @@ class App extends React.Component {
       return { event };
     });
   }
-  //add new events
-  addEvent(title,startDate,endDate,description,alarm,group="default",period="none"){
-
-  }
   // Handle the states of checkbox
   handleToggle(value){
     const currentIndex = this.state.checked.indexOf(value);
