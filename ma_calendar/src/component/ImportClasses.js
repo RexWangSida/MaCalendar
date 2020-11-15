@@ -59,7 +59,6 @@ class ImportClassses extends React.Component {
                         title: '4HC3 Lecture',
                         startDate: new Date(2020, 8, 8, 11, 30),//month is zero-indexed
                         endDate: new Date(2020, 8, 8, 12, 20),
-                        id: 0,
                         location: 'Virtual',
                         group: "4hc3",
                         notes: "About UI",
@@ -71,7 +70,6 @@ class ImportClassses extends React.Component {
                         title: '4HC3 Lecture',
                         startDate: new Date(2020, 8, 10, 11, 30),//month is zero-indexed
                         endDate: new Date(2020, 8, 10, 12, 20),
-                        id: 1,
                         location: 'Virtual',
                         group: "4hc3",
                         notes: "About UI",
@@ -83,7 +81,6 @@ class ImportClassses extends React.Component {
                         title: '4TE3 Lecture',
                         startDate: new Date(2020, 8, 11, 8, 30),//month is zero-indexed
                         endDate: new Date(2020, 8, 11, 11, 30),
-                        id: 3,
                         location: 'Virtual',
                         group: "4te3",
                         notes: "About Optimization",
@@ -99,7 +96,6 @@ class ImportClassses extends React.Component {
                         title: '4HC3 Quizz5',
                         startDate: new Date(2020, 11, 8, 23, 58),//month is zero-indexed
                         endDate: new Date(2020, 11, 8, 23, 59),
-                        id: 5,
                         location: 'Virtual',
                         group: "4hc3",
                         notes: "Quizzes about Map API",
@@ -111,7 +107,6 @@ class ImportClassses extends React.Component {
                         title: '4HC3 Final',
                         startDate: new Date(2020, 11, 18, 9, 30),//month is zero-indexed
                         endDate: new Date(2020, 11, 18, 12, 0),
-                        id: 5,
                         location: 'Virtual',
                         group: "4hc3",
                         notes: "4HC3 Final Exam",
@@ -126,7 +121,6 @@ class ImportClassses extends React.Component {
                         title: 'Co-op Interview',
                         startDate: new Date(2020, 11, 12, 15, 30),//month is zero-indexed
                         endDate: new Date(2020, 11, 12, 16, 0),
-                        id: 5,
                         location: 'Virtual',
                         group: "work",
                         notes: "Interview with Apple.Inc",

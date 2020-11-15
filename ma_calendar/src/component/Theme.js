@@ -14,7 +14,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import TabPanel from './TabPanel'
 import BrushIcon from '@material-ui/icons/Brush';
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
@@ -54,7 +53,7 @@ function Theme(props,{classes}) {
     return (
         <div>
             <IconButton onClick={handleClickOpen} edge="end" color="inherit"><BrushIcon /></IconButton>
-            <Dialog contentStyle={{width: "200%", maxWidth: "none"}} open={open} onClose={handleClose}>
+            <Dialog contentstyle={{width: "200%", maxWidth: "none"}} open={open} onClose={handleClose}>
                 <DialogTitle><BrushIcon />  Theme Setting</DialogTitle>
                 <DialogContent>
               <List>
@@ -70,11 +69,11 @@ function Theme(props,{classes}) {
           <FormControlLabel
           value="end"
           control={<Switch color="primary" />}
-          labelPlacement="Start"
+          labelPlacement="start"
           label={checkedDay ? "Night" : "Day"}
           onChange = {toggleCheckedDay}
         />
-          </ListItem>    
+          </ListItem>
       </List>
                 </DialogContent>
             </Dialog>

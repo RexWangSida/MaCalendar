@@ -205,8 +205,8 @@ class App extends React.Component {
             instances: [
               { id: '4hc3', text: '4HC3', color: '#d00000' },
               { id: '4te3', text: '4TE3', color: '#7E57C2' },
-              { id: 'private', text: 'Private', color: '#a8dadc' },
-              { id: 'work', text: 'Work', color: '#2a9d8f' },
+              { id: 'private', text: 'PRIVATE', color: '#a8dadc' },
+              { id: 'work', text: 'WORK', color: '#2a9d8f' },
             ],
           }],
           searchResult:[]
@@ -260,6 +260,18 @@ class App extends React.Component {
     this.setState((state) => {
       let { event } = state;
       if (added) {
+        if(this.state.resources[0].instances.filter((e)=>e.id===added.group).length === 0){
+          console.log("Cannot find exist group matched new added event. Going to add a new group named: ",added.group)
+          this.state.resources[0].instances = [...this.state.resources[0].instances,{id:added.group,text:added.group.toUpperCase(),color:this.state.themeColor}]
+        }
+        if(this.searchOption.filter((e)=>e.title===added.group).length === 0){
+          console.log("Add the group of the new added event to the searchOption",added.group)
+          this.searchOption = [...this.searchOption,{title:added.group,type:"group"}]
+        }
+        if(this.searchOption.filter((e)=>e.title===added.title).length === 0){
+          console.log("Add the new added event to the searchOption",added.title)
+          this.searchOption = [...this.searchOption,{title:added.title,type:"event"}]
+        }
         const startingAddedId = event.length > 0 ? event[event.length - 1].id + 1 : 0;
         event = [...event, { id: startingAddedId, ...added }];
       }

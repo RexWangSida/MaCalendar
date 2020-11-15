@@ -100,7 +100,7 @@ function Share(props) {
           <ListItem>
           <ListItemText>{
               props.event.map(function(item){
-              return <ListItemText><Checkbox onChange={handleCheck}/> {item.title}</ListItemText>}
+              return <ListItemText key={item.title}><Checkbox onChange={handleCheck}/> {item.title}</ListItemText>}
             )}
             </ListItemText>
             </ListItem>
