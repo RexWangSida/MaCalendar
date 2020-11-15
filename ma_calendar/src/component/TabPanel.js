@@ -21,7 +21,7 @@ import OscarLogo from './img/oscar_logo.png';
 class TabPanel extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { value: 0, checked: true, HC3: false, ass2: false, quizz5: false, final: false, Coop: false };
+        this.state = { value: 0, checked: true, T2020: false, T2021: false, Class4HC3: false, Class4G06A: false, career: false, service: false };
     }
 
     render() {
@@ -30,9 +30,100 @@ class TabPanel extends React.Component {
             this.setState({ value: newValue });
         };
 
-        const handleCheck = (event) => {
+        const handleT2020 = (event) => {
             this.setState({ checked: event.target.checked });
+            this.setState({ T2020: !this.state.T2020 });
         };
+
+        const handleT2021 = (event) => {
+            this.setState({ checked: event.target.checked });
+            this.setState({ T2021: !this.state.T2021 });
+        };
+
+        const handleClass4HC3 = (event) => {
+            this.setState({ checked: event.target.checked });
+            this.setState({ Class4HC3: !this.state.Class4HC3 });
+        };
+
+        const handleClass4G06A = (event) => {
+            this.setState({ checked: event.target.checked });
+            this.setState({ Class4G06A: !this.state.Class4G06A });
+        };
+
+        const handleCareer = (event) => {
+            this.setState({ checked: event.target.checked });
+            this.setState({ career: !this.state.career });
+        };
+
+        const handleService = (event) => {
+            this.setState({ checked: event.target.checked });
+            this.setState({ service: !this.state.service });
+        };
+
+        var selectedClasses = <FormGroup row><span>Please select a term.</span></FormGroup>;
+
+        if (this.state.T2020 && !this.state.T2021) {
+            selectedClasses = <FormGroup row>
+                <FormControlLabel control={<Checkbox onChange={this.props.Lec4E03Checked} name="4E03" color="primary" />} label="4E03" />
+                <FormControlLabel control={<Checkbox onChange={this.props.Lec4G06Checked} name="4G06A" color="primary" />} label="4G06A" />
+            </FormGroup>;
+        }
+        if (this.state.T2021 && !this.state.T2020) {
+            selectedClasses = <FormGroup row>
+                <FormControlLabel control={<Checkbox onChange={this.props.Lec4X03Checked} name="4X03" color="primary" />} label="4X03" />
+            </FormGroup>;
+        }
+        if (this.state.T2021 && this.state.T2020) {
+            selectedClasses = <FormGroup row>
+                <FormControlLabel control={<Checkbox onChange={this.props.Lec4E03Checked} name="4E03" color="primary" />} label="4E03" />
+                <FormControlLabel control={<Checkbox onChange={this.props.Lec4G06Checked} name="4G06A" color="primary" />} label="4G06A" />
+                <FormControlLabel control={<Checkbox onChange={this.props.Lec4X03Checked} name="4X03" color="primary" />} label="4X03" />
+            </FormGroup>;
+        }
+
+        var selectedTasks = <FormGroup row><span>Please select a course.</span></FormGroup>;
+
+        if (this.state.Class4HC3 && !this.state.Class4G06A) {
+            selectedTasks = <FormGroup row>
+                <FormControlLabel control={<Checkbox onChange={this.props.Ass1Checked} name="Assignment 1" color="primary" />} label="Assignment 1" />
+                <FormControlLabel control={<Checkbox onChange={this.props.Ass2Checked} name="Assignment 2" color="primary" />} label="Assignment 2" />
+            </FormGroup>
+        }
+        if (this.state.Class4G06A && !this.state.Class4HC3) {
+            selectedTasks = <FormGroup row>
+                <FormControlLabel control={<Checkbox onChange={this.props.Ms1Checked} name="Milestone 1" color="primary" />} label="Milestone 1" />
+                <FormControlLabel control={<Checkbox onChange={this.props.Ms2Checked} name="Milestone 2" color="primary" />} label="Milestone 2" />
+            </FormGroup>;
+        }
+        if (this.state.Class4HC3 && this.state.Class4G06A) {
+            selectedTasks = <FormGroup row>
+                <FormControlLabel control={<Checkbox onChange={this.props.Ass1Checked} name="Assignment 1" color="primary" />} label="Assignment 1" />
+                <FormControlLabel control={<Checkbox onChange={this.props.Ass2Checked} name="Assignment 2" color="primary" />} label="Assignment 2" />
+                <FormControlLabel control={<Checkbox onChange={this.props.Ms1Checked} name="Milestone 1" color="primary" />} label="Milestone 1" />
+                <FormControlLabel control={<Checkbox onChange={this.props.Ms2Checked} name="Milestone 2" color="primary" />} label="Milestone 2" />
+            </FormGroup>;
+        }
+
+        var selectedEvents = <FormGroup row><span>Please select a category.</span></FormGroup>;
+
+        if (this.state.career && !this.state.service) {
+            selectedEvents = <FormGroup row>
+                <FormControlLabel control={<Checkbox onChange={this.props.CoopChecked} name="Co-op Interview" color="primary" />} label="Co-op Interview" />
+                <FormControlLabel control={<Checkbox onChange={this.props.ResumeChecked} name="Resume and Cover Letter Writing" color="primary" />} label="Resume Cover Letter Writing" />
+            </FormGroup>
+        }
+        if (this.state.service && !this.state.career) {
+            selectedEvents = <FormGroup row>
+                <FormControlLabel control={<Checkbox onChange={this.props.HelpChecked} name="COVID-19 Help" color="primary" />} label="COVID-19 Help" />
+            </FormGroup>;
+        }
+        if (this.state.career && this.state.service) {
+            selectedEvents = <FormGroup row>
+                <FormControlLabel control={<Checkbox onChange={this.props.CoopChecked} name="Co-op Interview" color="primary" />} label="Co-op Interview" />
+                <FormControlLabel control={<Checkbox onChange={this.props.ResumeChecked} name="Resume and Cover Letter Writing" color="primary" />} label="Resume Cover Letter Writing" />
+                <FormControlLabel control={<Checkbox onChange={this.props.HelpChecked} name="COVID-19 Help" color="primary" />} label="COVID-19 Help" />
+            </FormGroup>;
+        }
 
         return (
             <div>
@@ -48,8 +139,8 @@ class TabPanel extends React.Component {
                         </AccordionSummary>
                         <AccordionDetails>
                             <FormGroup row>
-                                <FormControlLabel control={<Checkbox onChange={handleCheck} name="2020 Fall" color="primary" />} label="2020 Fall" />
-                                <FormControlLabel control={<Checkbox onChange={handleCheck} name="2021 Winter" color="primary" />} label="2021 Winter" />
+                                <FormControlLabel control={<Checkbox onChange={handleT2020} name="2020 Fall" color="primary" />} label="2020 Fall" />
+                                <FormControlLabel control={<Checkbox onChange={handleT2021} name="2021 Winter" color="primary" />} label="2021 Winter" />
                             </FormGroup>
                         </AccordionDetails>
                     </Accordion>
@@ -58,11 +149,7 @@ class TabPanel extends React.Component {
                             <Typography >Select Courses</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <FormGroup row>
-                                <FormControlLabel control={<Checkbox onChange={this.props.CourseChecked} name="4HC3" color="primary" />} label="4HC3" />
-                                <FormControlLabel control={<Checkbox onChange={handleCheck} name="4A03" color="primary" />} label="4A03" />
-                                <FormControlLabel control={<Checkbox onChange={handleCheck} name="4G06" color="primary" />} label="4G06" />
-                            </FormGroup>
+                            {selectedClasses}
                         </AccordionDetails>
                     </Accordion>
                 </Panel>
@@ -73,9 +160,8 @@ class TabPanel extends React.Component {
                         </AccordionSummary>
                         <AccordionDetails>
                             <FormGroup row>
-                                <FormControlLabel control={<Checkbox onChange={handleCheck} name="4HC3" color="primary" />} label="4HC3" />
-                                <FormControlLabel control={<Checkbox onChange={handleCheck} name="4A03" color="primary" />} label="4A03" />
-                                <FormControlLabel control={<Checkbox onChange={handleCheck} name="4G06" color="primary" />} label="4G06" />
+                                <FormControlLabel control={<Checkbox onChange={handleClass4HC3} name="4HC3" color="primary" />} label="4HC3" />
+                                <FormControlLabel control={<Checkbox onChange={handleClass4G06A} name="4G06A" color="primary" />} label="4G06A" />
                             </FormGroup>
                         </AccordionDetails>
                     </Accordion>
@@ -84,11 +170,7 @@ class TabPanel extends React.Component {
                             <Typography >Select Tasks</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <FormGroup row>
-                                <FormControlLabel control={<Checkbox onChange={handleCheck} name="Assignment 2" color="primary" />} label="Assignment 2" />
-                                <FormControlLabel control={<Checkbox onChange={this.props.TaskChecked} name="Quizz 5" color="primary" />} label="Quizz 5" />
-                                <FormControlLabel control={<Checkbox onChange={this.props.TaskChecked} name="Final Exam" color="primary" />} label="Final Exam" />
-                            </FormGroup>
+                            {selectedTasks}
                         </AccordionDetails>
                     </Accordion>
                 </Panel>
@@ -99,9 +181,8 @@ class TabPanel extends React.Component {
                         </AccordionSummary>
                         <AccordionDetails>
                             <FormGroup row>
-                                <FormControlLabel control={<Checkbox onChange={handleCheck} name="Careers" color="primary" />} label="Careers" />
-                                <FormControlLabel control={<Checkbox onChange={handleCheck} name="Student Services" color="primary" />} label="Student Services" />
-                                <FormControlLabel control={<Checkbox onChange={handleCheck} name="Academic Skills" color="primary" />} label="Academic Skills" />
+                                <FormControlLabel control={<Checkbox onChange={handleCareer} name="Careers" color="primary" />} label="Careers" />
+                                <FormControlLabel control={<Checkbox onChange={handleService} name="Student Services" color="primary" />} label="Student Services" />
                             </FormGroup>
                         </AccordionDetails>
                     </Accordion>
@@ -110,11 +191,7 @@ class TabPanel extends React.Component {
                             <Typography >Select Events</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <FormGroup row>
-                                <FormControlLabel control={<Checkbox onChange={this.props.EventChecked} name="Co-op Interview" color="primary" />} label="Co-op Interview" />
-                                <FormControlLabel control={<Checkbox onChange={handleCheck} name="Experience Building" color="primary" />} label="Experience Building" />
-                                <FormControlLabel control={<Checkbox onChange={handleCheck} name="Resume and Cover Letter Writing" color="primary" />} label="Resume Cover Letter Writing" />
-                            </FormGroup>
+                            {selectedEvents}
                         </AccordionDetails>
                     </Accordion>
                 </Panel>
