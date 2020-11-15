@@ -81,7 +81,7 @@ export default function MenuDrawer(props) {
           {/* The dawer*/}
           <Drawer className={classes.drawer} variant="persistent" anchor="left" open={props.open}classes={{paper: classes.drawerPaper,}}>
             <div className={classes.drawerHeader} style={{minHeight:"55px"}}>
-              <Button color='#FB7060' style={{marginRight:"180px"}} onClick={()=>props.changeDate(new Date())}>Today</Button>
+              <Button style={{marginRight:"180px",color:'#FB7060'}} onClick={()=>props.changeDate(new Date())}>Today</Button>
               <IconButton onClick={props.handleClose}>
                 {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
               </IconButton>
