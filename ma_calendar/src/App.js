@@ -29,15 +29,11 @@ import Theme from './component/Theme';
 import Settings from './component/Settings';
 import MenuDrawer from './component/MenuDrawer'
 import TableCalendar from './component/TableCalendar'
+import Dark from "./component/Themes/Dark" ;
+import Normal from "./component/Themes/Normal" 
+import CustomThemeProvider from "./component/CustomThemeProvider"
 //global const
 const drawerWidth = 310;
-
-
-const theme = createMuiTheme({
-  palette: {
-    type: "dark",
-  }
-});
 
 const styles = (theme) => ({
   root: {
@@ -150,6 +146,7 @@ class App extends React.Component {
         checked:["4hc3","work","private","4te3"],//checkbox
         date:new Date(),//currentDate
         themeColor:'#fb7060',
+        day:'light',
         event:[
             {
               title: '4HC3 Lecture',
@@ -225,6 +222,7 @@ class App extends React.Component {
     this.changeGroupColor = this.changeGroupColor.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.changeThemeColor = this.changeThemeColor.bind(this);
+    this.changeMode = this.changeMode.bind(this);
   }
   //handle search value changed
   handleSearch(event,value,reason){
@@ -259,6 +257,12 @@ class App extends React.Component {
   changeThemeColor(color){
     this.setState({
       themeColor: color
+    })
+  }
+  
+  changeMode(mode){
+    this.setState({
+      day: mode
     })
   }
   //handle delet/edit/modify of events
@@ -326,13 +330,28 @@ class App extends React.Component {
       console.log("search sth")
       mainDisplay = <TableCalendar checked={this.state.checked} events={this.state.searchResult} themeColor={this.state.themeColor} headFontColor={"white"}/>
     }
+    const customTheme = createMuiTheme({
+      palette: {
+        type: this.state.day,
+        primary: {
+          main: this.state.themeColor,
+          light:  this.state.themeColor,
+          dark: this.state.themeColor,
+          contrastText: "#fff"
+        },
+        secondary: {
+          main: this.state.themeColor,
+        },
+      },
+    })
     return (
       <div className={classes.root}>
         <CssBaseline />
         {/* The appBar(Nav)*/}
+        <MuiThemeProvider theme={customTheme}>
         <AppBar position="fixed" style = {{backgroundColor: this.state.themeColor}} className={clsx(classes.appBar, {[classes.appBarShift]: this.state.open,})}>
           <Toolbar>
-            <MenuDrawer changeGroupColor={this.changeGroupColor} handleToggle={this.handleToggle} groups={this.state.resources[0].instances} open={this.state.open} handleOpen={handleDrawerOpen.bind(this)} handleClose={handleDrawerClose.bind(this)} date={this.state.date} changeDate={this.changeDate} checked={this.state.checked}/>
+            <MenuDrawer color = {this.state.themeColor} changeGroupColor={this.changeGroupColor} handleToggle={this.handleToggle} groups={this.state.resources[0].instances} open={this.state.open} handleOpen={handleDrawerOpen.bind(this)} handleClose={handleDrawerClose.bind(this)} date={this.state.date} changeDate={this.changeDate} checked={this.state.checked}/>
             <Typography className={classes.title} variant="h6" noWrap>MaCalendar</Typography>
             {/* Selection of View*/}
             <FormControl variant="outlined" className={classes.formControl}>
@@ -360,18 +379,21 @@ class App extends React.Component {
                 />
             </div>
             <ImportClasses commitChanges={this.commitChanges}/>
-            <Share event= {this.state.event}/>
-            <Theme color={this.state.themeColor} changeThemeColor={this.changeThemeColor}/>
+            <Share color={this.state.themeColor} event= {this.state.event}/>
+            <Theme changeMode={this.changeMode} mode = {this.state.day} color={this.state.themeColor} changeThemeColor={this.changeThemeColor}/>
             <Settings/>
             <IconButton aria-label="display more actions" edge="end" color="inherit"><AccountCircleIcon /></IconButton>
 
           </Toolbar>
         </AppBar>
+        </MuiThemeProvider>
         {/* The main content block*/}
+        <MuiThemeProvider theme={customTheme}>
         <main className={clsx(classes.content, {[classes.contentShift]: this.state.open,})}>
           <div className={classes.drawerHeader} />
             {mainDisplay}
         </main>
+        </MuiThemeProvider>
       </div>
     )};
 }

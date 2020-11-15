@@ -32,23 +32,20 @@ function Theme(props,{classes}) {
   const [checkedDay, setCheckedDay] = React.useState(false);
   const {currentTheme, setTheme } = useContext(CustomThemeContext)
 
-  const toggleCheckedDay = () => {
-    setCheckedDay((prev) => !prev);
-    if(checkedDay){
-      setTheme("normal")
-    }
-    else{
-      setTheme("dark")
-    }
-  };
-
     const handleClickOpen = () => {
         setOpen(true);
+        
     };
 
     const handleClose = () => {
         setOpen(false);
     };
+
+    const handleChange = () => {
+      setCheckedDay((prev) => !prev)
+      props.changeMode(checkedDay ? "light" : "dark")
+  };
+
 
     return (
         <div>
@@ -71,7 +68,9 @@ function Theme(props,{classes}) {
           control={<Switch color="primary" />}
           labelPlacement="start"
           label={checkedDay ? "Night" : "Day"}
-          onChange = {toggleCheckedDay}
+          mode={props.mode}
+          
+          onChange = {handleChange}
         />
           </ListItem>
       </List>

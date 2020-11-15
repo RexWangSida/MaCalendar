@@ -22,22 +22,8 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import DayPicker from './DayPicker';
 import ColorPicker from './ColorPicker';
 import { createMuiTheme } from '@material-ui/core';
+import customTheme from "../App"
 
-
-export const customTheme = createMuiTheme({
-	palette: {
-		primary: {
-			main: '#FB7060',
-			light:  '#FB7060',
-			dark: '#FB7060',
-      contrastText: "#fff"
-		},
-		secondary: {
-			main: '#FB7060',
-		},
-
-	},
-})
 const drawerWidth = 310;
 const useStyles = makeStyles((theme) => ({
   menuButton: {
@@ -79,9 +65,9 @@ export default function MenuDrawer(props) {
             <MenuIcon />
           </IconButton>
           {/* The dawer*/}
-          <Drawer className={classes.drawer} variant="persistent" anchor="left" open={props.open}classes={{paper: classes.drawerPaper,}}>
+          <Drawer className={classes.drawer} variant="persistent" anchor="left" open={props.open} classes={{paper: classes.drawerPaper,}}>
             <div className={classes.drawerHeader} style={{minHeight:"55px"}}>
-              <Button style={{marginRight:"180px",color:'#FB7060'}} onClick={()=>props.changeDate(new Date())}>Today</Button>
+              <Button color='#FB7060' style={{marginRight:"180px"}} onClick={()=>props.changeDate(new Date())}>Today</Button>
               <IconButton onClick={props.handleClose}>
                 {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
               </IconButton>

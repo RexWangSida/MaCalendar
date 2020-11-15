@@ -23,22 +23,7 @@ import Sendmail from "./Sendmail";
 import Tooltip from '@material-ui/core/Tooltip';
 import Checkbox from '@material-ui/core/Checkbox';
 import { createMuiTheme } from '@material-ui/core';
-
-
-export const customTheme = createMuiTheme({
-	palette: {
-		primary: {
-			main: '#FB7060',
-			light:  '#FB7060',
-			dark: '#FB7060',
-      contrastText: "#fff"
-		},
-		secondary: {
-			main: '#FB7060',
-		},
-
-	},
-})
+import customTheme from "../App"
 
 const useStyles = makeStyles({
   list: {
