@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import clsx from 'clsx';
-import { makeStyles,createMuiTheme} from '@material-ui/core/styles';
+import { makeStyles,createMuiTheme,withStyles} from '@material-ui/core/styles';
 import PropTypes from "prop-types";
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
@@ -24,17 +24,13 @@ import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import ThemeColor from './ThemeColor';
 import {CustomThemeContext} from "./CustomThemeProvider"
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import Checkbox from '@material-ui/core/Checkbox';
 
-export const theme = createMuiTheme({
-  palette: {
-    type: "dark",
-  }
-});
 
-function Theme() {
+function Theme(props,{classes}) {
   const [open, setOpen] = React.useState(false);
   const [checkedDay, setCheckedDay] = React.useState(false);
-  const [checkedColor, setCheckedColor] = React.useState(false);
   const {currentTheme, setTheme } = useContext(CustomThemeContext)
 
   const toggleCheckedDay = () => {
@@ -47,10 +43,6 @@ function Theme() {
     }
   };
 
-  const toggleCheckedColor = () => {
-    setCheckedColor((prev) => !prev);
-  };
-
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -60,18 +52,17 @@ function Theme() {
     };
 
     return (
-      
         <div>
             <IconButton onClick={handleClickOpen} edge="end" color="inherit"><BrushIcon /></IconButton>
-            <Dialog open={open} onClose={handleClose}>
-                <DialogTitle><BrushIcon />  Theme</DialogTitle>
+            <Dialog contentStyle={{width: "200%", maxWidth: "none"}} open={open} onClose={handleClose}>
+                <DialogTitle><BrushIcon />  Theme Setting</DialogTitle>
                 <DialogContent>
               <List>
 
       </List>
       <List>
           <ListItem >
-          <ThemeColor />
+          <ThemeColor/>
           </ListItem>
       </List>
       <List>
@@ -83,12 +74,7 @@ function Theme() {
           label={checkedDay ? "Night" : "Day"}
           onChange = {toggleCheckedDay}
         />
-          </ListItem>
-          <ListItem>
-          <FormControlLabel
-        control={<Switch checked={checkedColor} onChange={toggleCheckedColor} />}
-        label={checkedColor ? "On" : "Off"}/>
-          </ListItem>          
+          </ListItem>    
       </List>
                 </DialogContent>
             </Dialog>

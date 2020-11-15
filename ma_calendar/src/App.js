@@ -341,7 +341,7 @@ class App extends React.Component {
             </div>
             <ImportClasses/>
             <Share event= {this.state.event}/>
-            <Theme/>
+            <Theme changeGroupColor={this.changeGroupColor} handleToggle={this.handleToggle} groups={this.state.resources[0].instances}/>
             <Settings/>
             <IconButton aria-label="display more actions" edge="end" color="inherit"><AccountCircleIcon /></IconButton>
 
