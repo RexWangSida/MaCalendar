@@ -2,6 +2,7 @@ Weidong Yang(Weidong Yang)
 	- Main Page(Calendar Page)
 	- Different views of the calendar paper
 	- Search Event
+        - Export as PDF
 
 Hongqing Cao(Deuce-Cao)
 	- Import courses from Mosaic
