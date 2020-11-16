@@ -1,0 +1,19 @@
+Weidong Yang(Weidong Yang)
+	- Main Page(Calendar Page)
+	- Different views of the calendar paper
+	- Search Event
+
+Hongqing Cao(Deuce-Cao)
+	- Import courses from Mosaic
+	- Import tasks from Avenue
+	- Import events from Oscarplus
+
+Sida Wang(RexWangSida)
+	- Add Event
+	- Modify Event
+	- Delete Event
+
+Yachen Wu(吴亚晨)
+	- Theme color
+	- Day-Night mode
+	- Export/Share
