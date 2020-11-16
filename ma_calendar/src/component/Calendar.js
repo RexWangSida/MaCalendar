@@ -141,9 +141,9 @@ class Calendar extends React.PureComponent{
           <ViewState currentDate={this.props.date} currentViewName={this.props.view}/>
           <EditingState onCommitChanges={this.props.commitChanges}/>
           <IntegratedEditing />
-          <DayView startDayHour={7} endDayHour={20}/>
-          <WeekView startDayHour={7} endDayHour={20} timeTableCellComponent={TimeTableCell} dayScaleCellComponent={DayScaleCell}/>
-          <MonthView startDayHour={7} endDayHour={20}/>
+          <DayView startDayHour={0} endDayHour={24}/>
+          <WeekView startDayHour={0} endDayHour={24} timeTableCellComponent={TimeTableCell} dayScaleCellComponent={DayScaleCell}/>
+          <MonthView startDayHour={0} endDayHour={24}/>
           <ConfirmationDialog />
           <Appointments />
           <AppointmentTooltip
