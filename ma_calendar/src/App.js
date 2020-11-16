@@ -270,7 +270,7 @@ class App extends React.Component {
       let { event,checked } = state;
       if (added) {
         if(this.state.resources[0].instances.filter((e)=>e.id===added.group).length === 0){
-          this.state.resources[0].instances = [...this.state.resources[0].instances,{id:added.group,text:added.group.toUpperCase(),color:this.state.themeColor}]
+          this.state.resources[0].instances = [...this.state.resources[0].instances,{id:added.group,text:added.group.toUpperCase(),color:"#64B5F6"}]
         }
         if(this.searchOption.filter((e)=>e.title===added.group).length === 0){
           this.searchOption = [...this.searchOption,{title:added.group,type:"group"}]
