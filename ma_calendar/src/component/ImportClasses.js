@@ -158,7 +158,7 @@ class ImportClassses extends React.Component {
             rRule: "RRULE:FREQ=WEEKLY;INTERVAL=1;COUNT=12"
         };
 
-        const ass2 = {
+        const schduleAss2 = {
             title: 'Assignment 2',
             startDate: new Date(2020, 10, 13, 17, 58),//month is zero-indexed
             endDate: new Date(2020, 10, 13, 17, 59),
@@ -167,7 +167,7 @@ class ImportClassses extends React.Component {
             notes: "DOM Implementation"
         }
 
-        const ms1 = {
+        const schduleMs1 = {
             title: 'Milestone 1',
             startDate: new Date(2020, 10, 7, 17, 58),//month is zero-indexed
             endDate: new Date(2020, 10, 7, 17, 59),
@@ -176,7 +176,7 @@ class ImportClassses extends React.Component {
             notes: "Proposal"
         }
 
-        const ms2 = {
+        const schduleMs2 = {
             title: 'Milestone 3',
             startDate: new Date(2020, 10, 21, 17, 58),//month is zero-indexed
             endDate: new Date(2020, 10, 21, 17, 59),
@@ -185,19 +185,19 @@ class ImportClassses extends React.Component {
             notes: "Contract"
         }
 
-        const coop = {
+        const schduleCoop = {
             title: 'Co-op Interview',
-            startDate: new Date(2020, 11, 9, 10, 30),//month is zero-indexed
-            endDate: new Date(2020, 11, 9, 11, 0),
+            startDate: new Date(2020, 10, 9, 10, 30),//month is zero-indexed
+            endDate: new Date(2020, 10, 9, 11, 0),
             location: 'Home',
             group: "work",
             notes: "Interview with Bell"
         }
 
-        const resume = {
+        const schduleResume = {
             title: 'Resume and Cover Letter Writing',
-            startDate: new Date(2020, 11, 2, 13, 30),//month is zero-indexed
-            endDate: new Date(2020, 11, 2, 14, 0),
+            startDate: new Date(2020, 10, 2, 13, 30),//month is zero-indexed
+            endDate: new Date(2020, 10, 2, 14, 0),
             location: 'Home',
             group: "work",
             notes: "Resume help"
@@ -205,8 +205,8 @@ class ImportClassses extends React.Component {
 
         const help = {
             title: 'COVID-19 Help',
-            startDate: new Date(2020, 11, 13, 15, 30),//month is zero-indexed
-            endDate: new Date(2020, 11, 13, 16, 0),
+            startDate: new Date(2020, 10, 13, 15, 30),//month is zero-indexed
+            endDate: new Date(2020, 10, 13, 16, 0),
             location: 'Home',
             group: "service",
             notes: "Mental health care"
@@ -319,29 +319,29 @@ class ImportClassses extends React.Component {
             if (this.state.ass2 && !this.state.ms1 && !this.state.ms2) {
                 this.setState({ empty: false });
                 this.setState({ alert: true });
-                this.props.commitChanges({ added: ass2, changed: null, deleted: null });
+                this.props.commitChanges({ added: schduleAss2, changed: null, deleted: null });
                 this.setState({ ass2: false });
                 this.setState({ open: false });
             }
             if (!this.state.ass2 && this.state.ms1 && !this.state.ms2) {
                 this.setState({ empty: false });
                 this.setState({ alert: true });
-                this.props.commitChanges({ added: ms1, changed: null, deleted: null });
+                this.props.commitChanges({ added: schduleMs1, changed: null, deleted: null });
                 this.setState({ ms1: false });
                 this.setState({ open: false });
             }
             if (!this.state.ass2 && !this.state.ms1 && this.state.ms2) {
                 this.setState({ empty: false });
                 this.setState({ alert: true });
-                this.props.commitChanges({ added: ms2, changed: null, deleted: null });
+                this.props.commitChanges({ added: schduleAss2, changed: null, deleted: null });
                 this.setState({ ms2: false });
                 this.setState({ open: false });
             }
             if (this.state.ass2 && this.state.ms1 && !this.state.ms2) {
                 this.setState({ empty: false });
                 this.setState({ alert: true });
-                this.props.commitChanges({ added: ass2, changed: null, deleted: null });
-                this.props.commitChanges({ added: ms1, changed: null, deleted: null });
+                this.props.commitChanges({ added: schduleAss2, changed: null, deleted: null });
+                this.props.commitChanges({ added: schduleMs1, changed: null, deleted: null });
                 this.setState({ ass2: false });
                 this.setState({ ms1: false });
                 this.setState({ open: false });
@@ -349,8 +349,8 @@ class ImportClassses extends React.Component {
             if (this.state.ass2 && !this.state.ms1 && this.state.ms2) {
                 this.setState({ empty: false });
                 this.setState({ alert: true });
-                this.props.commitChanges({ added: ass2, changed: null, deleted: null });
-                this.props.commitChanges({ added: ms2, changed: null, deleted: null });
+                this.props.commitChanges({ added: schduleAss2, changed: null, deleted: null });
+                this.props.commitChanges({ added: schduleMs2, changed: null, deleted: null });
                 this.setState({ ass2: false });
                 this.setState({ ms2: false });
                 this.setState({ open: false });
@@ -358,8 +358,8 @@ class ImportClassses extends React.Component {
             if (!this.state.ass2 && this.state.ms1 && this.state.ms2) {
                 this.setState({ empty: false });
                 this.setState({ alert: true });
-                this.props.commitChanges({ added: ms1, changed: null, deleted: null });
-                this.props.commitChanges({ added: ms2, changed: null, deleted: null });
+                this.props.commitChanges({ added: schduleMs1, changed: null, deleted: null });
+                this.props.commitChanges({ added: schduleMs2, changed: null, deleted: null });
                 this.setState({ ms1: false });
                 this.setState({ ms2: false });
                 this.setState({ open: false });
@@ -367,9 +367,9 @@ class ImportClassses extends React.Component {
             if (this.state.ass2 && this.state.ms1 && this.state.ms2) {
                 this.setState({ empty: false });
                 this.setState({ alert: true });
-                this.props.commitChanges({ added: ass2, changed: null, deleted: null });
-                this.props.commitChanges({ added: ms1, changed: null, deleted: null });
-                this.props.commitChanges({ added: ms2, changed: null, deleted: null });
+                this.props.commitChanges({ added: schduleAss2, changed: null, deleted: null });
+                this.props.commitChanges({ added: schduleMs1, changed: null, deleted: null });
+                this.props.commitChanges({ added: schduleMs2, changed: null, deleted: null });
                 this.setState({ ass2: false });
                 this.setState({ ms1: false });
                 this.setState({ ms2: false });
@@ -381,14 +381,14 @@ class ImportClassses extends React.Component {
             if (this.state.coop && !this.state.resume && !this.state.help) {
                 this.setState({ empty: false });
                 this.setState({ alert: true });
-                this.props.commitChanges({ added: coop, changed: null, deleted: null });
+                this.props.commitChanges({ added: schduleCoop, changed: null, deleted: null });
                 this.setState({ coop: false });
                 this.setState({ open: false });
             }
             if (!this.state.coop && this.state.resume && !this.state.help) {
                 this.setState({ empty: false });
                 this.setState({ alert: true });
-                this.props.commitChanges({ added: resume, changed: null, deleted: null });
+                this.props.commitChanges({ added: schduleResume, changed: null, deleted: null });
                 this.setState({ resume: false });
                 this.setState({ open: false });
 
@@ -403,8 +403,8 @@ class ImportClassses extends React.Component {
             if (this.state.coop && this.state.resume && !this.state.help) {
                 this.setState({ empty: false });
                 this.setState({ alert: true });
-                this.props.commitChanges({ added: coop, changed: null, deleted: null });
-                this.props.commitChanges({ added: resume, changed: null, deleted: null });
+                this.props.commitChanges({ added: schduleCoop, changed: null, deleted: null });
+                this.props.commitChanges({ added: schduleResume, changed: null, deleted: null });
                 this.setState({ coop: false });
                 this.setState({ resume: false });
                 this.setState({ open: false });
@@ -412,7 +412,7 @@ class ImportClassses extends React.Component {
             if (this.state.coop && !this.state.resume && this.state.help) {
                 this.setState({ empty: false });
                 this.setState({ alert: true });
-                this.props.commitChanges({ added: coop, changed: null, deleted: null });
+                this.props.commitChanges({ added: schduleCoop, changed: null, deleted: null });
                 this.props.commitChanges({ added: help, changed: null, deleted: null });
                 this.setState({ coop: false });
                 this.setState({ help: false });
@@ -421,7 +421,7 @@ class ImportClassses extends React.Component {
             if (!this.state.coop && this.state.resume && this.state.help) {
                 this.setState({ empty: false });
                 this.setState({ alert: true });
-                this.props.commitChanges({ added: resume, changed: null, deleted: null });
+                this.props.commitChanges({ added: schduleResume, changed: null, deleted: null });
                 this.props.commitChanges({ added: help, changed: null, deleted: null });
                 this.setState({ resume: false });
                 this.setState({ help: false });
@@ -430,8 +430,8 @@ class ImportClassses extends React.Component {
             if (this.state.coop && this.state.resume && this.state.help) {
                 this.setState({ empty: false });
                 this.setState({ alert: true });
-                this.props.commitChanges({ added: coop, changed: null, deleted: null });
-                this.props.commitChanges({ added: resume, changed: null, deleted: null });
+                this.props.commitChanges({ added: schduleCoop, changed: null, deleted: null });
+                this.props.commitChanges({ added: schduleResume, changed: null, deleted: null });
                 this.props.commitChanges({ added: help, changed: null, deleted: null });
                 this.setState({ coop: false });
                 this.setState({ resume: false });
