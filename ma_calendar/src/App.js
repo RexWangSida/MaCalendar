@@ -349,7 +349,7 @@ class App extends React.Component {
         <CssBaseline />
         {/* The appBar(Nav)*/}
         <MuiThemeProvider theme={customTheme}>
-        <AppBar position="fixed" style = {{backgroundColor: this.state.themeColor}} className={clsx(classes.appBar, {[classes.appBarShift]: this.state.open,})}>
+        <AppBar elevation={0}position="fixed" style = {{backgroundColor: this.state.themeColor}} className={clsx(classes.appBar, {[classes.appBarShift]: this.state.open,})}>
           <Toolbar>
             <MenuDrawer color = {this.state.themeColor} changeGroupColor={this.changeGroupColor} handleToggle={this.handleToggle} groups={this.state.resources[0].instances} open={this.state.open} handleOpen={handleDrawerOpen.bind(this)} handleClose={handleDrawerClose.bind(this)} date={this.state.date} changeDate={this.changeDate} checked={this.state.checked}/>
             <Typography className={classes.title} variant="h6" noWrap>MaCalendar</Typography>
