@@ -22,8 +22,11 @@ import NotesIcon from '@material-ui/icons/Notes';
 import { withStyles} from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import classNames from 'clsx';
-
-
+import Alert from '@material-ui/lab/Alert';
+import AlertTitle from '@material-ui/lab/AlertTitle';
+const alertstyle = {
+    position:'relative',
+};
 
 const style = (theme) => ({
   icon: {
@@ -117,7 +120,8 @@ class Calendar extends React.PureComponent{
     this.state = {
       shadePreviousCells: true,
       shadePreviousAppointments: true,
-      updateInterval: 10000
+      updateInterval: 10000,
+      alert:'flex',
     };
     this.handleUpdateIntervalChange = (nextValue) => {
       this.setState({
@@ -125,10 +129,13 @@ class Calendar extends React.PureComponent{
       });
     };
   }
+
   render(){
     const shownEvents = this.props.data.filter(appointment => this.props.checked.indexOf(appointment.group) !== -1);
     const {shadePreviousCells,updateInterval,shadePreviousAppointments} = this.state;
     return(
+<div>
+<Alert style={{display:this.state.alert}} onClose={(event) => this.setState({alert: 'none',})}><AlertTitle>Click on a calendar grid to add/modify/delete an event</AlertTitle></Alert>
       <Paper>
         <Scheduler data={shownEvents} height={900}>
           <ViewState currentDate={this.props.date} currentViewName={this.props.view}/>
@@ -158,6 +165,7 @@ class Calendar extends React.PureComponent{
         />
         </Scheduler>
       </Paper>
+</div>
     );
   }
 }

@@ -35,6 +35,9 @@ import CustomThemeProvider from "./component/CustomThemeProvider"
 //global const
 const drawerWidth = 310;
 
+
+
+
 const styles = (theme) => ({
   root: {
     display: 'flex',
@@ -55,7 +58,7 @@ const styles = (theme) => ({
     }),
   },
   content: {
-    paddingTop: "22px",
+    paddingTop: "12px",
     flexGrow: 1,
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
@@ -361,6 +364,7 @@ class App extends React.Component {
                 <MenuItem value={"Table"}>TABLE</MenuItem>
               </Select>
             </FormControl>
+
             {/* The searchBar with Autocomplete*/}
             <div className={classes.search}>
                 <div className={classes.searchIcon}>
@@ -389,8 +393,10 @@ class App extends React.Component {
         <main className={clsx(classes.content, {[classes.contentShift]: this.state.open,})}>
           <div className={classes.drawerHeader} />
             {mainDisplay}
+
         </main>
         </MuiThemeProvider>
+
       </div>
     )};
 }
