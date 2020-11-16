@@ -72,7 +72,6 @@ class ImportClassses extends React.Component {
             title: '4E03 Lecture',
             startDate: new Date(2020, 8, 8, 16, 30),//month is zero-indexed
             endDate: new Date(2020, 8, 8, 17, 20),
-            id: 10,
             location: 'Virtual',
             group: "4e03",
             notes: "About Computer",
@@ -83,7 +82,6 @@ class ImportClassses extends React.Component {
             title: '4E03 Lecture',
             startDate: new Date(2020, 8, 10, 16, 30),//month is zero-indexed
             endDate: new Date(2020, 8, 10, 17, 20),
-            id: 11,
             location: 'Virtual',
             group: "4e03",
             notes: "About Computer",
@@ -94,7 +92,6 @@ class ImportClassses extends React.Component {
             title: '4E03 Lecture',
             startDate: new Date(2020, 8, 11, 16, 30),//month is zero-indexed
             endDate: new Date(2020, 8, 11, 17, 20),
-            id: 12,
             location: 'Virtual',
             group: "4e03",
             notes: "About Computer",
@@ -105,7 +102,6 @@ class ImportClassses extends React.Component {
             title: '4G06A Lecture',
             startDate: new Date(2020, 8, 8, 17, 30),//month is zero-indexed
             endDate: new Date(2020, 8, 8, 18, 20),
-            id: 13,
             location: 'Virtual',
             group: "4g06",
             notes: "Capstone",
@@ -116,7 +112,6 @@ class ImportClassses extends React.Component {
             title: '4G06A Lecture',
             startDate: new Date(2020, 8, 10, 17, 30),//month is zero-indexed
             endDate: new Date(2020, 8, 10, 18, 20),
-            id: 14,
             location: 'Virtual',
             group: "4g06",
             notes: "Capstone",
@@ -127,7 +122,6 @@ class ImportClassses extends React.Component {
             title: '4G06A Lecture',
             startDate: new Date(2020, 8, 11, 17, 30),//month is zero-indexed
             endDate: new Date(2020, 8, 11, 18, 20),
-            id: 15,
             location: 'Virtual',
             group: "4g06",
             notes: "Capstone",
@@ -138,9 +132,8 @@ class ImportClassses extends React.Component {
             title: '4X03 Lecture',
             startDate: new Date(2021, 0, 5, 11, 30),//month is zero-indexed
             endDate: new Date(2021, 0, 5, 12, 20),
-            id: 16,
             location: 'Virtual',
-            group: "4e03",
+            group: "4x03",
             notes: "About Computer",
             rRule: "RRULE:FREQ=WEEKLY;INTERVAL=1;COUNT=12"
         };
@@ -149,9 +142,8 @@ class ImportClassses extends React.Component {
             title: '4X03 Lecture',
             startDate: new Date(2021, 0, 7, 11, 30),//month is zero-indexed
             endDate: new Date(2021, 0, 7, 12, 20),
-            id: 17,
             location: 'Virtual',
-            group: "4e03",
+            group: "4x03",
             notes: "About Computer",
             rRule: "RRULE:FREQ=WEEKLY;INTERVAL=1;COUNT=12"
         };
@@ -160,28 +152,25 @@ class ImportClassses extends React.Component {
             title: '4X03 Lecture',
             startDate: new Date(2021, 0, 8, 11, 30),//month is zero-indexed
             endDate: new Date(2021, 0, 8, 12, 20),
-            id: 18,
             location: 'Virtual',
-            group: "4e03",
+            group: "4x03",
             notes: "About Computer",
             rRule: "RRULE:FREQ=WEEKLY;INTERVAL=1;COUNT=12"
         };
 
         const ass2 = {
             title: 'Assignment 2',
-            startDate: new Date(2020, 11, 13, 17, 58),//month is zero-indexed
-            endDate: new Date(2020, 11, 13, 17, 59),
-            id: 20,
+            startDate: new Date(2020, 10, 13, 17, 58),//month is zero-indexed
+            endDate: new Date(2020, 10, 13, 17, 59),
             location: 'Anywhere',
-            group: "ass",
+            group: "assignment",
             notes: "DOM Implementation"
         }
 
         const ms1 = {
             title: 'Milestone 1',
-            startDate: new Date(2020, 11, 7, 17, 58),//month is zero-indexed
-            endDate: new Date(2020, 11, 7, 17, 59),
-            id: 22,
+            startDate: new Date(2020, 10, 7, 17, 58),//month is zero-indexed
+            endDate: new Date(2020, 10, 7, 17, 59),
             location: 'Anywhere',
             group: "milestone",
             notes: "Proposal"
@@ -189,9 +178,8 @@ class ImportClassses extends React.Component {
 
         const ms2 = {
             title: 'Milestone 3',
-            startDate: new Date(2020, 11, 21, 17, 58),//month is zero-indexed
-            endDate: new Date(2020, 11, 21, 17, 59),
-            id: 24,
+            startDate: new Date(2020, 10, 21, 17, 58),//month is zero-indexed
+            endDate: new Date(2020, 10, 21, 17, 59),
             location: 'Anywhere',
             group: "milestone",
             notes: "Contract"
@@ -201,7 +189,6 @@ class ImportClassses extends React.Component {
             title: 'Co-op Interview',
             startDate: new Date(2020, 11, 9, 10, 30),//month is zero-indexed
             endDate: new Date(2020, 11, 9, 11, 0),
-            id: 25,
             location: 'Home',
             group: "work",
             notes: "Interview with Bell"
@@ -211,7 +198,6 @@ class ImportClassses extends React.Component {
             title: 'Resume and Cover Letter Writing',
             startDate: new Date(2020, 11, 2, 13, 30),//month is zero-indexed
             endDate: new Date(2020, 11, 2, 14, 0),
-            id: 26,
             location: 'Home',
             group: "work",
             notes: "Resume help"
@@ -221,7 +207,6 @@ class ImportClassses extends React.Component {
             title: 'COVID-19 Help',
             startDate: new Date(2020, 11, 13, 15, 30),//month is zero-indexed
             endDate: new Date(2020, 11, 13, 16, 0),
-            id: 27,
             location: 'Home',
             group: "service",
             notes: "Mental health care"

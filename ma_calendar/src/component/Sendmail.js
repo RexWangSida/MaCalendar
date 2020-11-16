@@ -35,23 +35,22 @@ class Sendmail extends React.Component {
       this.setState({ email: e.target.value })
     };
 render(){
-  console.log(this.state.email)
   return (
     <div>
-    <TextField 
+    <TextField
     autoFocus
     name = "email"
     type="email"
-    id="filled-basic" 
-    label="Share via email" 
-    variant="filled" 
+    id="filled-basic"
+    label="Share via email"
+    variant="filled"
     value = {this.state.email}
     onChange = {this.handleChange}
     />
-    <Button value = "Send" variant="contained" 
+    <Button value = "Send" variant="contained"
     href={`mailto:${this.state.email}`}
     color="primary" onClick={this.sendMessage.bind(this)}> Share </Button>
-    
+
     </div>
   );
 }

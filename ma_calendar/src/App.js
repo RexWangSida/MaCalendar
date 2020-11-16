@@ -30,7 +30,7 @@ import Settings from './component/Settings';
 import MenuDrawer from './component/MenuDrawer'
 import TableCalendar from './component/TableCalendar'
 import Dark from "./component/Themes/Dark" ;
-import Normal from "./component/Themes/Normal" 
+import Normal from "./component/Themes/Normal"
 import CustomThemeProvider from "./component/CustomThemeProvider"
 //global const
 const drawerWidth = 310;
@@ -234,7 +234,6 @@ class App extends React.Component {
           tmp = [...tmp,events[i]]
         }
       }
-      console.log("tmp",tmp)
       this.setState({search:true,searchResult:tmp})
     }else if(reason === "clear"){
       this.setState({search:false})
@@ -259,7 +258,7 @@ class App extends React.Component {
       themeColor: color
     })
   }
-  
+
   changeMode(mode){
     this.setState({
       day: mode
@@ -268,20 +267,18 @@ class App extends React.Component {
   //handle delet/edit/modify of events
   commitChanges({ added, changed, deleted }) {
     this.setState((state) => {
-      let { event } = state;
+      let { event,checked } = state;
       if (added) {
         if(this.state.resources[0].instances.filter((e)=>e.id===added.group).length === 0){
-          console.log("Cannot find exist group matched new added event. Going to add a new group named: ",added.group)
           this.state.resources[0].instances = [...this.state.resources[0].instances,{id:added.group,text:added.group.toUpperCase(),color:this.state.themeColor}]
         }
         if(this.searchOption.filter((e)=>e.title===added.group).length === 0){
-          console.log("Add the group of the new added event to the searchOption",added.group)
           this.searchOption = [...this.searchOption,{title:added.group,type:"group"}]
         }
         if(this.searchOption.filter((e)=>e.title===added.title).length === 0){
-          console.log("Add the new added event to the searchOption",added.title)
           this.searchOption = [...this.searchOption,{title:added.title,type:"event"}]
         }
+        checked = [...checked,added.group]
         const startingAddedId = event.length > 0 ? event[event.length - 1].id + 1 : 0;
         event = [...event, { id: startingAddedId, ...added }];
       }
@@ -289,10 +286,11 @@ class App extends React.Component {
         event = event.map(appointment => (
           changed[appointment.id] ? { ...appointment, ...changed[appointment.id] } : appointment));
       }
+
       if (deleted !== undefined) {
         event = event.filter(appointment => appointment.id !== deleted);
       }
-      return { event };
+      return { event,checked};
     });
   }
   //add new events
@@ -327,7 +325,6 @@ class App extends React.Component {
       mainDisplay = <TableCalendar checked={this.state.checked} events={this.state.event} themeColor={'#e9ecef'} headFontColor={"black"}/>
     }
     if(this.state.search === true){
-      console.log("search sth")
       mainDisplay = <TableCalendar checked={this.state.checked} events={this.state.searchResult} themeColor={this.state.themeColor} headFontColor={"white"}/>
     }
     const customTheme = createMuiTheme({

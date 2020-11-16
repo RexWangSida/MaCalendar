@@ -35,10 +35,9 @@ const useStyles = makeStyles({
 });
 
 function Share(props) {
-  
+
   const rows = props.event;
   const classes = useStyles();
-  console.log(rows)
   const [state, setState] = React.useState({
     top: false,
   });
@@ -88,7 +87,7 @@ function Share(props) {
           </ListItem>
           <ListItem>{
             rows.map((row) =>{
-              return <ListItemText>{row.title}</ListItemText>})
+              return <ListItemText key={row.id}>{row.title}</ListItemText>})
               }
             </ListItem>
             <ListItem>{
@@ -96,7 +95,7 @@ function Share(props) {
               const week = ["Sun ","Mon ","Tue ","Wed ","Thu ","Fri ","Sat "]
               const startDate = week[row.startDate.getDay()]+row.startDate.toTimeString().substring(0,5)
               const endDate = week[row.endDate.getDay()]+row.endDate.toTimeString().substring(0,5)
-              return <ListItemText>From {startDate}</ListItemText>})
+              return <ListItemText key={row.id}>From {startDate}</ListItemText>})
               }
             </ListItem>
             <ListItem>{
@@ -104,7 +103,7 @@ function Share(props) {
               const week = ["Sun ","Mon ","Tue ","Wed ","Thu ","Fri ","Sat "]
               const startDate = week[row.startDate.getDay()]+row.startDate.toTimeString().substring(0,5)
               const endDate = week[row.endDate.getDay()]+row.endDate.toTimeString().substring(0,5)
-              return <ListItemText>To {endDate}</ListItemText>})
+              return <ListItemText key={row.id}>To {endDate}</ListItemText>})
               }
             </ListItem>
       </List>
