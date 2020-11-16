@@ -22,8 +22,6 @@ import NotesIcon from '@material-ui/icons/Notes';
 import { withStyles} from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import classNames from 'clsx';
-import Alert from '@material-ui/lab/Alert';
-import AlertTitle from '@material-ui/lab/AlertTitle';
 const alertstyle = {
     position:'relative',
 };
@@ -121,7 +119,6 @@ class Calendar extends React.PureComponent{
       shadePreviousCells: true,
       shadePreviousAppointments: true,
       updateInterval: 10000,
-      alert:'flex',
     };
     this.handleUpdateIntervalChange = (nextValue) => {
       this.setState({
@@ -135,15 +132,14 @@ class Calendar extends React.PureComponent{
     const {shadePreviousCells,updateInterval,shadePreviousAppointments} = this.state;
     return(
 <div>
-<Alert style={{display:this.state.alert}} onClose={(event) => this.setState({alert: 'none',})}><AlertTitle>Click on a calendar grid to add/modify/delete an event</AlertTitle></Alert>
       <Paper>
-        <Scheduler data={shownEvents} height={900}>
+        <Scheduler data={shownEvents} locale='en-US'>
           <ViewState currentDate={this.props.date} currentViewName={this.props.view}/>
           <EditingState onCommitChanges={this.props.commitChanges}/>
           <IntegratedEditing />
-          <DayView startDayHour={7} endDayHour={20}/>
-          <WeekView startDayHour={7} endDayHour={20} timeTableCellComponent={TimeTableCell} dayScaleCellComponent={DayScaleCell}/>
-          <MonthView startDayHour={7} endDayHour={20}/>
+          <DayView startDayHour={8} endDayHour={24} cellDuration={60}/>
+          <WeekView startDayHour={8} endDayHour={24} timeTableCellComponent={TimeTableCell} dayScaleCellComponent={DayScaleCell} cellDuration={60}/>
+          <MonthView startDayHour={8} endDayHour={24}/>
           <ConfirmationDialog />
           <Appointments />
           <AppointmentTooltip

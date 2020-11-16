@@ -17,10 +17,14 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
+import ReactToPrint from 'react-to-print';
+import Alert from '@material-ui/lab/Alert';
+import AlertTitle from '@material-ui/lab/AlertTitle';
 //Icon
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import SearchIcon from '@material-ui/icons/Search';
 import Tooltip from '@material-ui/core/Tooltip';
+import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
 //dependency
 import Calendar from './component/Calendar'
 import ImportClasses from './component/ImportClasses'
@@ -150,6 +154,7 @@ class App extends React.Component {
         date:new Date(),//currentDate
         themeColor:'#fb7060',
         day:'light',
+        alert:'flex',
         event:[
             {
               title: '4HC3 Lecture',
@@ -323,7 +328,7 @@ class App extends React.Component {
     const handleDrawerOpen = () => { this.setState({ open: true })};
     const handleDrawerClose = () => {this.setState({ open: false })};
     const handleChange = (event) => {this.setState({view:event.target.value});};
-    var mainDisplay = <Calendar checked={this.state.checked} style={{padding:"30px"}} data={this.state.event} commitChanges={this.commitChanges} date={this.state.date} view={this.state.view} resources={this.state.resources}/>
+    var mainDisplay = <Calendar ref={el => (this.componentRef = el)} checked={this.state.checked} style={{padding:"30px"}} data={this.state.event} commitChanges={this.commitChanges} date={this.state.date} view={this.state.view} resources={this.state.resources}/>
     if(this.state.view === "Table"){
       mainDisplay = <TableCalendar checked={this.state.checked} events={this.state.event} themeColor={'#e9ecef'} headFontColor={"black"}/>
     }
@@ -356,7 +361,6 @@ class App extends React.Component {
             {/* Selection of View*/}
             <FormControl variant="outlined" className={classes.formControl}>
               <InputLabel id="select-view">View</InputLabel>
-
               <Select labelId="select-view" value={this.state.view} onChange={handleChange} label="View">
                 <MenuItem value={"Day"}>DAY</MenuItem>
                 <MenuItem value={"Week"}>WEEK</MenuItem>
@@ -380,10 +384,14 @@ class App extends React.Component {
                 />
             </div>
             <ImportClasses commitChanges={this.commitChanges}/>
+            <ReactToPrint copyStyles
+                trigger={() => <Tooltip title="Export as pdf"><IconButton aria-label="display more actions" edge="end" color="inherit"><PictureAsPdfIcon/></IconButton></Tooltip>}
+                content={() => this.componentRef}
+                />
             <Share color={this.state.themeColor} event= {this.state.event}/>
             <Theme changeMode={this.changeMode} mode = {this.state.day} color={this.state.themeColor} changeThemeColor={this.changeThemeColor}/>
             <Settings/>
-            <IconButton aria-label="display more actions" edge="end" color="inherit"><AccountCircleIcon /></IconButton>
+            <Tooltip title="Account"><IconButton aria-label="display more actions" edge="end" color="inherit"><AccountCircleIcon /></IconButton></Tooltip>
 
           </Toolbar>
         </AppBar>
@@ -392,8 +400,8 @@ class App extends React.Component {
         <MuiThemeProvider theme={customTheme}>
         <main className={clsx(classes.content, {[classes.contentShift]: this.state.open,})}>
           <div className={classes.drawerHeader} />
+          <Alert style={{display:this.state.alert}} onClose={(event) => this.setState({alert: 'none',})}><AlertTitle>Note: Double click a blank grid to add new event. Click on a calendar grid to modify/delete an event</AlertTitle></Alert>
             {mainDisplay}
-
         </main>
         </MuiThemeProvider>
 

@@ -15,7 +15,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-
+import Tooltip from '@material-ui/core/Tooltip';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import TabPanel from './TabPanel'
@@ -442,7 +442,7 @@ class ImportClassses extends React.Component {
 
         return (
             <div>
-                <IconButton onClick={handleClickOpen} edge="end" color="inherit"><SaveAltIcon /></IconButton>
+                <Tooltip title="Import"><IconButton onClick={handleClickOpen} edge="end" color="inherit"><SaveAltIcon /></IconButton></Tooltip>
                 <Dialog open={this.state.open} onClose={handleClose}>
                     <DialogTitle><SaveAltIcon /> Import events from other sources</DialogTitle>
                     <DialogContent>

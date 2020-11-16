@@ -25,7 +25,7 @@ import ThemeColor from './ThemeColor';
 import {CustomThemeContext} from "./CustomThemeProvider"
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Checkbox from '@material-ui/core/Checkbox';
-
+import Tooltip from '@material-ui/core/Tooltip';
 
 function Theme(props,{classes}) {
   const [open, setOpen] = React.useState(false);
@@ -34,7 +34,7 @@ function Theme(props,{classes}) {
 
     const handleClickOpen = () => {
         setOpen(true);
-        
+
     };
 
     const handleClose = () => {
@@ -49,7 +49,7 @@ function Theme(props,{classes}) {
 
     return (
         <div>
-            <IconButton onClick={handleClickOpen} edge="end" color="inherit"><BrushIcon /></IconButton>
+            <Tooltip title="Theme"><IconButton onClick={handleClickOpen} edge="end" color="inherit"><BrushIcon /></IconButton></Tooltip>
             <Dialog contentstyle={{width: "200%", maxWidth: "none"}} open={open} onClose={handleClose}>
                 <DialogTitle><BrushIcon />  Theme Setting (Click to modify theme color)</DialogTitle>
                 <DialogContent>
@@ -69,7 +69,7 @@ function Theme(props,{classes}) {
           labelPlacement="start"
           label={checkedDay ? "Night" : "Day"}
           mode={props.mode}
-          
+
           onChange = {handleChange}
         />
           </ListItem>

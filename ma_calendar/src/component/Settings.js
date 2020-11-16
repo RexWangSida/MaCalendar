@@ -17,7 +17,7 @@ import InstagramIcon from '@material-ui/icons/Instagram';
 import { Icon } from '@material-ui/core';
 import EmailIcon from '@material-ui/icons/Email';
 import TextField from '@material-ui/core/TextField';
-
+import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles({
   list: {
@@ -83,7 +83,7 @@ function Settings() {
     <div>
       {['top'].map((anchor) => (
         <React.Fragment key={anchor}>
-          <IconButton onClick={toggleDrawer(anchor, true)} aria-label="display more actions" edge="end" color="inherit"><SettingsIcon /></IconButton>
+          <Tooltip title="Setting"><IconButton onClick={toggleDrawer(anchor, true)} aria-label="display more actions" edge="end" color="inherit"><SettingsIcon /></IconButton></Tooltip>
           <Drawer anchor={'right'} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
             {list(anchor)}
           </Drawer>
