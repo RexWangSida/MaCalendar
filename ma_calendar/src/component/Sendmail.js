@@ -23,18 +23,22 @@ import TextField from '@material-ui/core/TextField';
 class Sendmail extends React.Component {
     constructor(props) {
         super(props);
-    this.state = {
-          email: "",
-        };
-      }
-
-    sendMessage(event){
-
-    }
+        this.state = {
+              email: "",
+            };
+          }
     handleChange = (e) => {
       this.setState({ email: e.target.value })
     };
 render(){
+  var format1="{title} {group} {startDate}-{endDate} {note}\n";
+  const week = ["Sun ","Mon ","Tue ","Wed ","Thu ","Fri ","Sat "]
+  var body = ""
+  this.props.events.map((row)=>{
+    const startDate = week[row.startDate.getDay()]+row.startDate.toTimeString().substring(0,5)
+    const endDate = week[row.endDate.getDay()]+row.endDate.toTimeString().substring(0,5)
+    body = body + `${row.title} ${row.group} ${startDate}-${endDate} ${row.note}%0D`
+  })
   return (
     <div>
     <TextField
@@ -48,8 +52,8 @@ render(){
     onChange = {this.handleChange}
     />
     <Button value = "Send" variant="contained"
-    href={`mailto:${this.state.email}`}
-    color="primary" onClick={this.sendMessage.bind(this)}> Share </Button>
+    href={`mailto:${this.state.email}?cc=&subject=From:MaCalendar&body=${body}`}
+    color="primary" > Share </Button>
 
     </div>
   );

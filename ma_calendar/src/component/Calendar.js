@@ -13,6 +13,7 @@ import {
   DragDropProvider,
   CurrentTimeIndicator,
   ConfirmationDialog,
+  AllDayPanel,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import IconButton from '@material-ui/core/IconButton';
 import MoreIcon from '@material-ui/icons/MoreVert';
@@ -137,11 +138,12 @@ class Calendar extends React.PureComponent{
           <ViewState currentDate={this.props.date} currentViewName={this.props.view}/>
           <EditingState onCommitChanges={this.props.commitChanges}/>
           <IntegratedEditing />
-          <DayView startDayHour={8} endDayHour={24} cellDuration={60}/>
-          <WeekView startDayHour={8} endDayHour={24} timeTableCellComponent={TimeTableCell} dayScaleCellComponent={DayScaleCell} cellDuration={60}/>
-          <MonthView startDayHour={8} endDayHour={24}/>
+          <DayView startDayHour={7} endDayHour={24} cellDuration={60}/>
+          <WeekView startDayHour={7} endDayHour={24} timeTableCellComponent={TimeTableCell} dayScaleCellComponent={DayScaleCell} cellDuration={60}/>
+          <MonthView startDayHour={7} endDayHour={24}/>
           <ConfirmationDialog />
           <Appointments />
+          <AllDayPanel />
           <AppointmentTooltip
             showDeleteButton
             showOpenButton

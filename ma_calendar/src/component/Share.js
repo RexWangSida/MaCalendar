@@ -77,7 +77,7 @@ function Share(props) {
           <MuiThemeProvider theme={customTheme}>
           <ListItem >
             <ListItemIcon><EmailIcon/></ListItemIcon>
-            <Sendmail/>
+            <Sendmail events={rows}/>
           </ListItem>
           </MuiThemeProvider>
       </List>
@@ -110,9 +110,9 @@ function Share(props) {
       <Divider />
       <List>
           <ListItem className = "">
-              <IconButton><FacebookIcon onClick={event =>  window.location.href='https://www.facebook.com/'}/></IconButton>
-              <IconButton><LinkedInIcon onClick={event =>  window.location.href='https://www.linkedin.com/'}/></IconButton>
-              <IconButton><InstagramIcon onClick={event =>  window.location.href='https://www.instagram.com/'}/></IconButton>
+              <IconButton onClick={event =>  window.location.href='https://www.facebook.com/'}><FacebookIcon /></IconButton>
+              <IconButton onClick={event =>  window.location.href='https://www.linkedin.com/'}><LinkedInIcon /></IconButton>
+              <IconButton onClick={event =>  window.location.href='https://www.instagram.com/'}><InstagramIcon /></IconButton>
           </ListItem>
       </List>
     </div>

@@ -277,13 +277,13 @@ class App extends React.Component {
     this.setState((state) => {
       let { event,checked } = state;
       if (added) {
-        if(this.state.resources[0].instances.filter((e)=>e.id===added.group).length === 0){
+        if(added.hasOwnProperty('group') && this.state.resources[0].instances.filter((e)=>e.id===added.group).length === 0){
           this.state.resources[0].instances = [...this.state.resources[0].instances,{id:added.group,text:added.group.toUpperCase(),color:"#64B5F6"}]
         }
-        if(this.searchOption.filter((e)=>e.title===added.group).length === 0){
+        if(added.hasOwnProperty('group') && this.searchOption.filter((e)=>e.title===added.group).length === 0){
           this.searchOption = [...this.searchOption,{title:added.group,type:"group"}]
         }
-        if(this.searchOption.filter((e)=>e.title===added.title).length === 0){
+        if(added.hasOwnProperty('title') && this.searchOption.filter((e)=>e.title===added.title).length === 0){
           this.searchOption = [...this.searchOption,{title:added.title,type:"event"}]
         }
         checked = [...checked,added.group]
@@ -400,7 +400,7 @@ class App extends React.Component {
         <MuiThemeProvider theme={customTheme}>
         <main className={clsx(classes.content, {[classes.contentShift]: this.state.open,})}>
           <div className={classes.drawerHeader} />
-          <Alert style={{display:this.state.alert}} onClose={(event) => this.setState({alert: 'none',})}><AlertTitle>Note: Double click a blank grid to add new event. Click on a calendar grid to modify/delete an event</AlertTitle></Alert>
+          <Alert style={{display:this.state.alert}} onClose={(event) => this.setState({alert: 'none',})}><AlertTitle>Note: Double click on a blank grid to add new event. Click on a calendar grid to modify/delete an event</AlertTitle></Alert>
             {mainDisplay}
         </main>
         </MuiThemeProvider>

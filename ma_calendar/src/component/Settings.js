@@ -81,7 +81,7 @@ function Settings() {
 
   return (
     <div>
-      {['top'].map((anchor) => (
+      {['right'].map((anchor) => (
         <React.Fragment key={anchor}>
           <Tooltip title="Setting"><IconButton onClick={toggleDrawer(anchor, true)} aria-label="display more actions" edge="end" color="inherit"><SettingsIcon /></IconButton></Tooltip>
           <Drawer anchor={'right'} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
