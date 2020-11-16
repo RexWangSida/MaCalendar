@@ -31,7 +31,11 @@ class Sendmail extends React.Component {
     sendMessage(event){
 
     }
+    handleChange = (e) => {
+      this.setState({ email: e.target.value })
+    };
 render(){
+  console.log(this.state.email)
   return (
     <div>
     <TextField 
@@ -41,7 +45,8 @@ render(){
     id="filled-basic" 
     label="Share via email" 
     variant="filled" 
-    onChange = {this.state.email}
+    value = {this.state.email}
+    onChange = {this.handleChange}
     />
     <Button value = "Send" variant="contained" 
     href={`mailto:${this.state.email}`}
